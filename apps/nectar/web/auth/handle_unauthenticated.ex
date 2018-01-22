@@ -4,7 +4,7 @@ defmodule Nectar.Auth.HandleUnauthenticated do
 
   use Phoenix.Controller
 
-  def unauthenticated(conn, _params) do
+  def auth_error(conn, {type, reason}, _opts) do
     conn
     |> put_flash(:error, "Please login to continue")
     |> redirect(to: session_path(conn, :new))

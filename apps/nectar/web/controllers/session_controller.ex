@@ -14,7 +14,7 @@ defmodule Nectar.SessionController do
     case Nectar.Command.User.login(Repo, user_params) do
       {:ok, user} ->
         conn
-        |> Guardian.Plug.sign_in(user)
+        |> Nectar.Guardian.Plug.sign_in(user)
         |> put_flash(:info, "Signed In Succesfully")
         |> redirect(to: next_page_after_login(conn))
       {:error, changeset} ->
@@ -35,7 +35,7 @@ defmodule Nectar.SessionController do
         # We could use sign_out(:default) to just revoke this token
         # but I prefer to clear out the session. This means that because we
         # use tokens in two locations - :default and :admin - we need to load it (see above)
-        |> Guardian.Plug.sign_out
+        |> Nectar.Guardian.Plug.sign_out
         |> put_flash(:info, "Signed out")
         |> redirect(to: session_path(conn, :new))
     end

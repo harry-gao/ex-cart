@@ -30,7 +30,7 @@ config :phoenix, :generators,
 
 config :nectar, ecto_repos: [Nectar.Repo]
 
-config :guardian, Guardian,
+config :nectar, Nectar.Guardian,
   allowed_algos: ["HS512"],
   verify_module: Guardian.JWT,
   issuer: "Nectar.#{Mix.env}",

@@ -10,16 +10,19 @@ defmodule Nectar.Router do
   end
 
   pipeline :browser_auth do
+    plug Guardian.Plug.Pipeline, module: Nectar.Guardian, error_handler: Nectar.Auth.HandleUnauthenticated
     plug Guardian.Plug.VerifySession
     plug Guardian.Plug.LoadResource
   end
 
   pipeline :api_auth do
+    plug Guardian.Plug.Pipeline,  module: Nectar.Guardian, error_handler: Nectar.Auth.HandleUnauthenticatedApi
     plug Guardian.Plug.VerifySession
     plug Guardian.Plug.LoadResource
   end
 
   pipeline :admin_browser_auth do
+    plug Guardian.Plug.Pipeline,  module: Nectar.Guardian, error_handler: Nectar.Auth.HandleUnauthenticated
     plug Guardian.Plug.VerifySession
     plug Guardian.Plug.LoadResource
     plug Nectar.Plugs.AdminAccessRequired
@@ -31,11 +34,16 @@ defmodule Nectar.Router do
   end
 
   scope "/", Nectar do
+    pipe_through [:browser]
+    resources "/sessions", SessionController, only: [:new, :create]
+  end
+
+  scope "/", Nectar do
 
     pipe_through [:browser, :browser_auth] # Use the default browser stack
 
     resources "/registrations", RegistrationController, only: [:new, :create]
-    resources "/sessions", SessionController, only: [:new, :create]
+    #resources "/sessions", SessionController, only: [:new, :create]
     delete "/logout", SessionController, :logout
 
     resources "/orders", OrderController, only: [:index, :show]
