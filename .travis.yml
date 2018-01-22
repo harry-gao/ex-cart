@@ -1,0 +1,20 @@
+sudo: false
+language: elixir
+elixir:
+  - 1.3.3
+otp_release:
+  - 19.1
+env:
+  - MIX_ENV=test
+script:
+  - mix test --trace
+notifications:
+  email:
+    - pikender@vinsol.com
+addons:
+  postgresql: "9.4"
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database nectar_test;' -U postgres
