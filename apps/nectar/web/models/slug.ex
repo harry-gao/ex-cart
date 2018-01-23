@@ -1,4 +1,5 @@
 defmodule Nectar.Slug do
+  import Ecto.UUID, only: [generate: 0]
   import Ecto.Changeset, only: [get_change: 2, put_change: 3]
 
   def generate_slug(changeset, slug_base_field \\ :name) do
@@ -19,6 +20,8 @@ defmodule Nectar.Slug do
   end
 
   defp get_name_change_when_slug_not_present(changeset, slug_base_field) do
-    changeset.data.slug || get_change(changeset, slug_base_field)
+    #if slug is not set and name is in Chinese, it cannot be inserted into db
+    #changeset.data.slug || get_change(changeset, slug_base_field)
+    changeset.data.slug || Ecto.UUID.generate
   end
 end
