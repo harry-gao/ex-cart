@@ -2,7 +2,12 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js"
+      joinTo: {
+        'js/app.js': /^(web\/static\/client)/,
+        'js/vendor.js': /^(?!app)/,
+        'js/admin.js': /^(web\/static\/admin)/
+      }
+
 
       // To use a separate vendor.js bundle, specify two files path
       // https://github.com/brunch/brunch/blob/stable/docs/config.md#files
@@ -21,7 +26,10 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: {
+        'css/app.css': /^(web\/static\/client)/,
+        'css/admin.css': /^(web\/static\/admin)/
+      }
     },
     templates: {
       joinTo: "js/app.js"
@@ -52,13 +60,15 @@ exports.config = {
     babel: {
       presets: ["es2015", "react", "stage-0", "stage-1"],
       // Do not use ES6 compiler in vendor code
-      ignore: [/web\/static\/vendor/]
+      ignore: [/web\/static\/client\/vendor/,
+        /web\/static\/admin\/vendor/]
     }
   },
 
   modules: {
     autoRequire: {
-      "js/app.js": ["web/static/js/app"]
+      "js/app.js": ["web/static/client/js/app"],
+      "js/admin.js": ["web/static/admin/js/admin"],
     }
   },
 
@@ -66,6 +76,6 @@ exports.config = {
     enabled: true,
     // Whitelist the npm deps to be pulled in as front-end assets.
     // All other deps in package.json will be excluded from the bundle.
-    whitelist: ["phoenix", "phoenix_html", "react", "react-dom", "redux", "es6-promise", "isomorphix-fetch", "redux-thunk", "react-redux", "lodash"]
+    //whitelist: ["phoenix", "phoenix_html", "react", "react-dom", "redux", "es6-promise", "isomorphix-fetch", "redux-thunk", "react-redux", "lodash"]
   }
 };
