@@ -5,7 +5,8 @@ defmodule Nectar.VariantImage do
   @versions [:original, :thumb]
   @extension_whitelist ~w(.jpg .jpeg .gif .png)
 
-  def __storage, do: Arc.Storage.S3
+  #def __storage, do: Arc.Storage.S3
+  def __storage, do: Arc.Storage.Local
 
   def acl(:thumb, _), do: :public_read
 

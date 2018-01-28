@@ -51,7 +51,7 @@ defmodule Nectar.Variant do
   end
 
   @required_fields ~w(cost_price)a
-  @optional_fields ~w(add_count discontinue_on)a
+  @optional_fields ~w(add_count discontinue_on sku)a
   def create_master_changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
@@ -100,7 +100,7 @@ defmodule Nectar.Variant do
     |> validate_discontinue_gt_available_on(product)
     |> validate_not_master
     # Even if changset is invalid, cast_attachments does it work :(
-    |> cast_attachments(params, ~w(), ~w(image))
+    |> cast_attachments(params, [:image])
     |> cast_assoc(:variant_option_values, required: true, with: &Nectar.VariantOptionValue.from_variant_changeset/2)
   end
 
