@@ -7,6 +7,8 @@ export default function getView(actionName) {
     return EditView;
   case "new":
     return EditView;
+  case "new_single":
+    return EditView;
   default:
     return BaseProductView;
   }

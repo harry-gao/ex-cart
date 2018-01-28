@@ -23,7 +23,17 @@ defmodule Nectar.Admin.ProductController do
     )
   end
 
-  def new(conn, _params) do
+  def new(conn, %{"type" => "single"} = params) do
+    changeset = Product.changeset(%Product{available_on: Ecto.Date.utc})
+    render(conn, "new_single.html", changeset: changeset)
+  end
+
+  def new(conn, %{"type" => "multi"} = params) do
+    changeset = Product.changeset(%Product{available_on: Ecto.Date.utc})
+    render(conn, "new.html", changeset: changeset)
+  end
+
+  def new(conn, params) do
     changeset = Product.changeset(%Product{available_on: Ecto.Date.utc})
     render(conn, "new.html", changeset: changeset)
   end

@@ -1,6 +1,14 @@
 <h2>New product</h2>
 
-<%= render "form.html", changeset: @changeset, get_option_types: @get_option_types,
+<div>
+<%= link "创建单个产品", to: admin_product_path(@conn, :new, type: "single"), class: 'btn btn-primary' %>
+</div>
+<br/>
+<br/>
+<div>
+<%= link "创建产品系列", to: admin_product_path(@conn, :new, type: "multi"), class: 'btn btn-primary' %>
+<%# <%= render "form.html", changeset: @changeset, get_option_types: @get_option_types,
                         action: admin_product_path(@conn, :create), categories: @categories %>
+</div>
 
 <%= link "Back", to: admin_product_path(@conn, :index) %>
