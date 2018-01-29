@@ -18,6 +18,8 @@ defmodule Nectar.Product do
     has_many :product_categories, Nectar.ProductCategory, on_delete: :nilify_all
     has_many :categories, through: [:product_categories, :category]
 
+    has_many :images, Nectar.ProductImage, on_delete: :delete_all
+
     extensions()
     timestamps()
   end
@@ -35,8 +37,6 @@ defmodule Nectar.Product do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> cast(params, @required_fields ++ @optional_fields)
-    |> validate_required(@required_fields)
     |> Validations.Date.validate_not_past_date(:available_on)
     |> Nectar.Slug.generate_slug()
     |> cast_assoc(:product_option_types, with: &Nectar.ProductOptionType.from_product_changeset/2)
@@ -51,6 +51,7 @@ defmodule Nectar.Product do
 
   def update_changeset(model, params \\ %{}) do
     changeset(model, params)
+    |> cast_assoc(:images, with: &(Nectar.ProductImage.from_product_changeset(&1, model, &2)))
     |> cast_assoc(:master, required: true, with: &(Nectar.Variant.update_master_changeset(&1, model, &2)))
     |> validate_available_on_lt_discontinue_on
   end

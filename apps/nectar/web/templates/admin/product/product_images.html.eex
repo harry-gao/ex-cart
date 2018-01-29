@@ -1,0 +1,9 @@
+<%= inputs_for @f, :images, [multipart: true], fn pi -> %>
+  <div class="product_images">
+    <div class="form-group">
+      <%= label pi, :image, class: "control-label" %>
+      <%= file_input pi, :image, class: "form-control" %>
+      <%= error_tag pi, :image %>
+    </div>
+  </div>
+<% end %>

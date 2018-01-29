@@ -2,12 +2,8 @@ defmodule Nectar.Admin.ProductView do
   use Nectar.Web, :view
 
   import Ecto.Query
-  alias Nectar.Repo
-  alias Nectar.Product
-  alias Nectar.ProductOptionType
-  alias Nectar.OptionType
-  alias Nectar.ProductCategory
-
+  alias Nectar.{Repo,Product, ProductOptionType, OptionType, ProductCategory, ProductImage }
+  
   def link_to_product_option_types_fields do
     changeset = Product.changeset(%Product{product_option_types: [%ProductOptionType{}]})
     form = Phoenix.HTML.FormData.to_form(changeset, [])
@@ -22,6 +18,13 @@ defmodule Nectar.Admin.ProductView do
     categories = leaf_categories
     fields = render_to_string(__MODULE__, "product_categories.html", f: form, categories: categories)
     link "Add Category", to: "#", "data-template": fields, id: "add_product_category"
+  end
+
+  def link_to_product_image_fields do
+    changeset = Product.changeset(%Product{images: [%ProductImage{}]})
+    form = Phoenix.HTML.FormData.to_form(changeset, [])
+    fields = render_to_string(__MODULE__, "product_images.html", f: form)
+    link "Add Image", to: "#", "data-template": fields, id: "add_product_image"
   end
 
 end

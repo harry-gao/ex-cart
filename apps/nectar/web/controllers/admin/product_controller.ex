@@ -52,18 +52,18 @@ defmodule Nectar.Admin.ProductController do
   def show(conn, %{"id" => id}) do
     product =
       Nectar.Query.Product.get!(Repo, id)
-      |> Repo.preload([:master, :option_types, :categories])
+      |> Repo.preload([:master, :option_types, :categories, :images])
     render(conn, "show.html", product: product)
   end
 
   def edit(conn, %{"id" => id}) do
-    product = Nectar.Query.Product.get!(Repo, id) |> Repo.preload([:master, :product_option_types, :product_categories])
+    product = Nectar.Query.Product.get!(Repo, id) |> Repo.preload([:master, :product_option_types, :product_categories, :images])
     changeset = Product.changeset(product)
     render(conn, "edit.html", product: product, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "product" => product_params}) do
-    product = Nectar.Query.Product.get!(Repo, id) |> Repo.preload([:master, :product_option_types, :product_categories])
+    product = Nectar.Query.Product.get!(Repo, id) |> Repo.preload([:master, :product_option_types, :product_categories, :images])
     case Nectar.Command.Product.update(Repo, product, product_params) do
       {:ok, product} ->
         conn

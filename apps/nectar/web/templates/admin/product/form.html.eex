@@ -36,6 +36,29 @@
     <%= error_tag f, :available_on %>
   </div>
 
+  <%= if @changeset.data.id do %>
+    <%= inputs_for f, :images, fn pi -> %>
+      <div class="product_images">
+        <div class="form-group">
+          <%= label pi, :image, class: "control-label" %>
+          <%= file_input pi, :image, class: "form-control" %>
+          <%= error_tag pi, :image %>
+        </div>
+
+        <%= if pi.data.id do %>
+          <div class="form-group">
+            <%= label pi, :delete, "Delete?", class: "control-label" %>
+            <%= checkbox pi, :delete %>
+          </div>
+        <% else %>
+          <%= link "Remove", to: "#", id: "delete_product_image" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div><%= link_to_product_image_fields() %></div>
+  <% end %>
+
   <%= inputs_for f, :master, [multipart: true], fn m -> %>
     <div class="form-group">
       <%= label m, :cost_price, class: "control-label" %>

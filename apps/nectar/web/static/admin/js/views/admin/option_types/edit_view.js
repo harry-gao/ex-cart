@@ -12,7 +12,7 @@ export default class EditView extends BaseOptionTypeView {
   }
 
   handleAdd() {
-    $(document).on("click", "#add_option_value, #add_product_option_type, #add_category, #add_product_category", function(e) {
+    $(document).on("click", "#add_option_value, #add_product_option_type, #add_category, #add_product_category, #add_product_image", function(e) {
       e.preventDefault();
       let time = new Date().getTime();
       let template = $(this).data("template");
@@ -23,7 +23,7 @@ export default class EditView extends BaseOptionTypeView {
   }
 
   handleDelete() {
-    $(document).on("click", "#delete_option_value, #delete_product_option_type, #delete_category, #delete_product_category", function(e) {
+    $(document).on("click", "#delete_option_value, #delete_product_option_type, #delete_category, #delete_product_category,  #delete_product_image", function(e) {
       e.preventDefault();
       $(this).parent().remove();
     });

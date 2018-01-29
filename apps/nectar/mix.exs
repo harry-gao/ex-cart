@@ -55,7 +55,8 @@ defmodule Nectar.Mixfile do
       #{:commerce_billing, github: "nimish-mehta/commerce_billing",  override: true},
       {:braintree, "~> 0.5.0"},
       {:yamerl, github: "yakaz/yamerl"},
-      {:worldly, "~> 0.1.2"}
+      {:worldly, "~> 0.1.2"},
+      {:secure_random, "~> 0.5"}
     ]
   end
 
