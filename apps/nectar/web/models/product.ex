@@ -8,6 +8,7 @@ defmodule Nectar.Product do
     field :available_on, Ecto.Date
     field :discontinue_on, Ecto.Date
     field :slug, :string
+    field :has_variant, :boolean
 
     has_one :master, Nectar.Variant, on_delete: :nilify_all # As this and below association same, how to handle on_delete
     has_many :variants, Nectar.Variant, on_delete: :nilify_all
@@ -24,7 +25,7 @@ defmodule Nectar.Product do
     timestamps()
   end
 
-  @required_fields ~w(name description available_on)a
+  @required_fields ~w(name description available_on has_variant)a
   @optional_fields ~w(slug)a
 
   @doc """

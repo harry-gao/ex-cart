@@ -5,5 +5,6 @@
       <%= file_input pi, :image, class: "form-control" %>
       <%= error_tag pi, :image %>
     </div>
+    <%= link "Remove", to: "#", id: "delete_product_image" %>
   </div>
 <% end %>

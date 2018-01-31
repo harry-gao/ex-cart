@@ -24,18 +24,17 @@ defmodule Nectar.Admin.ProductController do
   end
 
   def new(conn, %{"type" => "single"} = params) do
-    changeset = Product.changeset(%Product{available_on: Ecto.Date.utc})
+    changeset = Product.changeset(%Product{available_on: Ecto.Date.utc, has_variant: true})
     render(conn, "new_single.html", changeset: changeset)
   end
 
   def new(conn, %{"type" => "multi"} = params) do
-    changeset = Product.changeset(%Product{available_on: Ecto.Date.utc})
-    render(conn, "new.html", changeset: changeset)
+    changeset = Product.changeset(%Product{available_on: Ecto.Date.utc,  has_variant: true})
+    render(conn, "new_multi.html", changeset: changeset)
   end
 
   def new(conn, params) do
-    changeset = Product.changeset(%Product{available_on: Ecto.Date.utc})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html")
   end
 
   def create(conn, %{"product" => product_params}) do
@@ -45,7 +44,10 @@ defmodule Nectar.Admin.ProductController do
         |> put_flash(:info, "Product created successfully.")
         |> redirect(to: admin_product_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        case product_params[:has_variant] do
+          true -> render(conn, "new_multi.html", changeset: changeset)
+          _ -> render(conn, "new_single.html", changeset: changeset)
+        end
     end
   end
 

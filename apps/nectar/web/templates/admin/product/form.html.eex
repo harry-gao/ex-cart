@@ -19,12 +19,6 @@
   </div>
 
   <div class="form-group">
-    <%= label f, :slug, class: "control-label" %>
-    <%= text_input f, :slug, class: "form-control" %>
-    <%= error_tag f, :slug %>
-  </div>
-
-  <div class="form-group">
     <%= label f, :description, class: "control-label" %>
     <%= textarea f, :description, class: "form-control" %>
     <%= error_tag f, :description %>
@@ -38,24 +32,17 @@
 
   <%= if @changeset.data.id do %>
     <%= inputs_for f, :images, fn pi -> %>
+      <%= label pi, :images, class: "control-label" %>
       <div class="product_images">
-        <div class="form-group">
-          <%= label pi, :image, class: "control-label" %>
-          <%= file_input pi, :image, class: "form-control" %>
-          <%= error_tag pi, :image %>
-        </div>
-
-        <%= if pi.data.id do %>
+          <div>
+            <img src="<%= Nectar.Uploader.ProductImage.url({pi.data.image, pi.data}, :thumb) %>">
+          </div>
           <div class="form-group">
             <%= label pi, :delete, "Delete?", class: "control-label" %>
             <%= checkbox pi, :delete %>
           </div>
-        <% else %>
-          <%= link "Remove", to: "#", id: "delete_product_image" %>
-        <% end %>
       </div>
     <% end %>
-
     <div><%= link_to_product_image_fields() %></div>
   <% end %>
 
@@ -76,42 +63,12 @@
 
     <%= if @changeset.data.id do %>
       <div class="form-group">
-        <label>Image</label>
-        <%= file_input m, :image, class: "form-control" %>
-        <%= if @product.master.image do %>
-          <%= tag(:image, src: Nectar.VariantImage.url({@product.master.image, @product.master}, :thumb)) %>
-        <% end %>
-        <%= error_tag m, :image %>
-      </div>
-
-      <div class="form-group">
         <%= label m, :discontinue_on, class: "control-label" %>
         <%= date_select m, :discontinue_on, class: "form-control" %>
         <%= error_tag m, :discontinue_on %>
       </div>
     <% end %>
   <% end %>
-
-  <%= inputs_for f, :product_option_types, fn po -> %>
-    <div class="product_option_type">
-      <div class="form-group">
-        <%= label po, :option_type_id, class: "control-label" %>
-        <%= select po, :option_type_id, @get_option_types, class: "form-control" %>
-        <%= error_tag po, :option_type_id %>
-      </div>
-
-      <%= if po.data.id do %>
-        <div class="form-group">
-            <%= label po, :delete, "Delete?", class: "control-label" %>
-            <%= checkbox po, :delete %>
-        </div>
-      <% else %>
-        <%= link "Remove", to: "#", id: "delete_product_option_type" %>
-      <% end %>
-    </div>
-  <% end %>
-
-  <div><%= link_to_product_option_types_fields() %></div>
 
   <%= inputs_for f, :product_categories, fn po -> %>
     <div class="product_categories">

@@ -6,6 +6,8 @@ defmodule Nectar.ProductImage do
     field :image, Nectar.Uploader.ProductImage.Type
     belongs_to :product, Nectar.Product, foreign_key: :product_id
 
+    field :delete, :boolean, virtual: true, default: false
+
     timestamps()
   end
 
@@ -21,9 +23,16 @@ defmodule Nectar.ProductImage do
   def from_product_changeset(model, product, params \\ %{}) do
     model
     |> struct(%{product_id: product.id})
+    |> cast(params, ~w(delete))
     |> cast_attachments(params, ~w(image))
-    # cast(model, params, ~w(category_id), ~w(delete))
-    # |> set_delete_action
-    # |> unique_constraint(:category_id, name: :unique_product_category)
+    |> set_delete_action
+  end
+
+  def set_delete_action(changeset) do
+    if get_change(changeset, :delete) do
+      %{changeset| action: :delete}
+    else
+      changeset
+    end
   end
 end
