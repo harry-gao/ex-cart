@@ -4,8 +4,8 @@ exports.config = {
     javascripts: {
       joinTo: {
         'js/app.js': /^(web\/static\/client)/,
-        'js/vendor.js': /^(?!app)/,
-        'js/admin.js': /^(web\/static\/admin)/
+        'js/vendor.js': /^(node_modules|bower_components)/,
+        'js/admin.js': /^(web\/static\/admin\/js)/
       }
 
 

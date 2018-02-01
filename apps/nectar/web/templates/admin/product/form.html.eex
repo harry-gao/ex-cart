@@ -12,6 +12,8 @@
     </div>
   <% end %>
 
+  <%= checkbox f, :has_variant, disabled: true, class: "hidden"%>
+
   <div class="form-group">
     <%= label f, :name, class: "control-label" %>
     <%= text_input f, :name, class: "form-control" %>
@@ -20,7 +22,7 @@
 
   <div class="form-group">
     <%= label f, :description, class: "control-label" %>
-    <%= textarea f, :description, class: "form-control" %>
+    <%= textarea f, :description, id: "product-description" %>
     <%= error_tag f, :description %>
   </div>
 
@@ -96,3 +98,5 @@
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<script src="<%= static_path(@conn, "/tinymce/tinymce.min.js") %>"></script>

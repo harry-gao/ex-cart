@@ -9,7 +9,7 @@
       <% end %>
     </div>
     <div class="panel-footer">
-      <%= @product.description %>
+      <%= raw(@product.description) %>
     </div>
   </div>
   <div class="panel panel-default">
