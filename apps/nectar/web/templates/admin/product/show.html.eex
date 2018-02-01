@@ -4,7 +4,9 @@
   <div class="panel panel-default">
     <div class="panel-body"><%= @product.name %></div>
     <div class="panel-body">
-      <%= tag(:image, src: Nectar.VariantImage.url({@product.master.image, @product.master}, :thumb)) %>
+      <%= for image <- @product.images do %>
+        <%= tag(:image, src: Nectar.Uploader.ProductImage.url({image.image, image}, :thumb)) %>
+      <% end %>
     </div>
     <div class="panel-footer">
       <%= @product.description %>
