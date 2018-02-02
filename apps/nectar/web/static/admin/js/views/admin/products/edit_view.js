@@ -17,7 +17,6 @@ export default class EditView extends BaseProductView {
       selector: '#product-description',
       plugins: "textcolor image", 
       toolbar: "forecolor backcolor",
-      images_upload_url: '/documents/upload_image',
       textcolor_map: [
         "000000", "Black",
         "993300", "Burnt orange",
@@ -58,7 +57,32 @@ export default class EditView extends BaseProductView {
         "CCFFFF", "Pale cyan",
         "99CCFF", "Light sky blue",
         "CC99FF", "Plum"
-      ]
+      ],
+      images_upload_handler: function (blobInfo, success, failure) {
+        var xhr, formData;
+        xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open('POST', '/admin_api/contentimage');
+        xhr.onload = function() {
+          var json;
+    
+          if (xhr.status != 200) {
+            failure('HTTP Error: ' + xhr.status);
+            return;
+          }
+          json = JSON.parse(xhr.responseText);
+    
+          if (!json || typeof json.location != 'string') {
+            failure('Invalid JSON: ' + xhr.responseText);
+            return;
+          }
+          success(json.location);
+        };
+        formData = new FormData();
+        formData.append('file', blobInfo.blob());
+        formData.append('id', $("#product_id").val());
+        xhr.send(formData);
+      }
     });
   }
   handleAdd() {

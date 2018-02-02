@@ -26,7 +26,7 @@ defmodule Nectar.Mixfile do
       applications: [
         :phoenix, :phoenix_html, :cowboy, :logger, :gettext,
         :phoenix_ecto, :postgrex, :worldly, :yamerl,
-        :ex_aws, :httpoison, :phoenix_pubsub
+        :ex_aws, :httpoison, :phoenix_pubsub, :hackney
       ]
     ]
   end
@@ -56,7 +56,8 @@ defmodule Nectar.Mixfile do
       {:braintree, "~> 0.5.0"},
       {:yamerl, github: "yakaz/yamerl"},
       {:worldly, "~> 0.1.2"},
-      {:secure_random, "~> 0.5"}
+      {:secure_random, "~> 0.5"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 

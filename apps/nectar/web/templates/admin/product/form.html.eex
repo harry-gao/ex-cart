@@ -33,6 +33,7 @@
   </div>
 
   <%= if @changeset.data.id do %>
+    <input type="hidden" value=<%= @changeset.data.id %> id="product_id" >
     <%= inputs_for f, :images, fn pi -> %>
       <%= label pi, :images, class: "control-label" %>
       <div class="product_images">

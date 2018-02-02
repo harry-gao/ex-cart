@@ -124,6 +124,11 @@ defmodule Nectar.Router do
     get "/cart", CartController, :show
   end
 
+  scope "/admin_api", Nectar.Admin do
+    pipe_through [:api]
+    post "contentimage", ContentImageController, :upload
+  end
+
   use Nectar.RouteExtender
   # Other scopes may use custom stacks.
   # scope "/api", Nectar do

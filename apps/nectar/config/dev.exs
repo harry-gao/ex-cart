@@ -33,11 +33,24 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 config :arc,
-  bucket: "ex-shop"
+  bucket: System.get_env("AWS_S3_BUCKET"),
+  virtual_host: true
 
-  #config :ex_aws,
-  #access_key_id: [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
-  #secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role]
+config :ex_aws,
+  debug_requests: true,
+  access_key_id:  [{:system, "AWS_ACCESS_KEY_ID"}, :instance_role],
+  secret_access_key: [{:system, "AWS_SECRET_ACCESS_KEY"}, :instance_role],
+  region: "ap-southeast-1",
+  s3: [
+    scheme: "https://",
+    host: "s3.ap-southeast-1.amazonaws.com/",
+    region: "ap-southeast-1"
+  ]
+
+config :ex_aws, :hackney_opts,
+  follow_redirect: true,
+  recv_timeout: 30_000
+ 
 
 import_config "dev.secret.exs"
 
