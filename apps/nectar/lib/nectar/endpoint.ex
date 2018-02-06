@@ -7,8 +7,17 @@ defmodule Nectar.Endpoint do
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
+  
+  plug Plug.Static.IndexHtml,
+    at: "/"
+  
   plug Plug.Static,
-    at: "/", from: :nectar, gzip: false,
+    at: "/", from: {:nectar, "priv/cart-client/build"},
+    only: ~w(index.html favicon.ico static)
+  
+  
+  plug Plug.Static,
+    at: "/admin_assets", from: :nectar, gzip: false,
     only: ~w(uploads css fonts images js tinymce favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the

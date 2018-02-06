@@ -100,4 +100,4 @@
   </div>
 <% end %>
 
-<script src="<%= static_path(@conn, "/tinymce/tinymce.min.js") %>"></script>
+<script src="<%= static_path(@conn, "/admin_assets/tinymce/tinymce.min.js") %>"></script>

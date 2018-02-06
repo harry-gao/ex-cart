@@ -60,7 +60,8 @@ defmodule Nectar.Mixfile do
       {:sweet_xml, "~> 0.6"},
       {:absinthe_plug, "~> 1.4.0"},
       {:absinthe_ecto, "~> 0.1.3"},
-      {:dataloader, "~> 1.0.0"}
+      {:dataloader, "~> 1.0.0"},
+      {:plug_static_index_html, "~> 1.0"}
     ]
   end
 
