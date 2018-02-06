@@ -57,7 +57,10 @@ defmodule Nectar.Mixfile do
       {:yamerl, github: "yakaz/yamerl"},
       {:worldly, "~> 0.1.2"},
       {:secure_random, "~> 0.5"},
-      {:sweet_xml, "~> 0.6"}
+      {:sweet_xml, "~> 0.6"},
+      {:absinthe_plug, "~> 1.4.0"},
+      {:absinthe_ecto, "~> 0.1.3"},
+      {:dataloader, "~> 1.0.0"}
     ]
   end
 

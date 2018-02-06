@@ -126,8 +126,19 @@ defmodule Nectar.Router do
 
   scope "/admin_api", Nectar.Admin do
     pipe_through [:api]
-    post "contentimage", ContentImageController, :upload
+    post "/contentimage", ContentImageController, :upload
   end
+
+  forward "/graphql",
+    Absinthe.Plug,
+    [schema: Nectar.Schema]
+
+  forward "/graphiql",
+    Absinthe.Plug.GraphiQL,
+    [
+      schema: Nectar.Schema,
+      interface: :simple
+    ]
 
   use Nectar.RouteExtender
   # Other scopes may use custom stacks.
