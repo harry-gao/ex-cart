@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-
-import './HomeFooter.css'
 import {Link} from 'react-router-dom'
+
+import styles from './HomeFooter.css'
+
 
 class HomeFooter extends Component {
   render() {
     return (
-      <div className="footer">
-          <div className="home">
+      <div className={styles.footer}>
+          <div className={styles.hoe}>
             <Link to='/home'> Home </Link>
           </div>
-          <div className="cart">
+          <div className={styles.cart}>
             <Link to='/cart'> Cart </Link>
           </div>
-          <div className="me">
+          <div className={styles.me}>
             <Link to='/me'> Me </Link>
           </div>
       </div>

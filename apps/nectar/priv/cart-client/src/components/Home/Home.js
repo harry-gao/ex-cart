@@ -1,17 +1,17 @@
 import React from 'react';
-import './Home.css'
+import styles from './Home.css'
 import ProductListWithData from '../ProductList/ProductList'
 import HomeFooter from '../HomeFooter/HomeFooter'
 
 
 const Home = () => {
-  return  <div className="site">
-            <div className="header">
+  return  <div className={styles.site}>
+            <div className={styles.header}>
             </div>
-            <div className="main">
+            <div className={styles.main}>
               <ProductListWithData />
             </div>
-            <div className="footer">
+            <div className={styles.footer}>
               <HomeFooter/>
             </div>
           </div>  ;

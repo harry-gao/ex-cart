@@ -3,7 +3,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import ProductBrief from '../ProductBrief/ProductBrief'
-import './ProductList.css'
+import styles from './ProductList.css'
 
 
 const ProductList = ({ data: {loading, error, products }}) => {
@@ -13,7 +13,7 @@ const ProductList = ({ data: {loading, error, products }}) => {
   if (error) {
     return <p>{error.message}</p>;
   }
-  return <div className="list">
+  return <div className={styles.list}>
     { products.map( p => < ProductBrief product={p} key={p.id} /> ) }
   </div>;
 };
