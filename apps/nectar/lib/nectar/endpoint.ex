@@ -19,6 +19,8 @@ defmodule Nectar.Endpoint do
   plug Plug.Static,
     at: "/admin_assets", from: :nectar, gzip: false,
     only: ~w(uploads css fonts images js tinymce favicon.ico robots.txt)
+  
+  plug CORSPlug, origin: ["http://localhost:3000", "http://localhost:4000"]
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

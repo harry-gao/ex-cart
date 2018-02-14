@@ -10,6 +10,7 @@
   "comeonin": {:hex, :comeonin, "2.6.0", "74c288338b33205f9ce97e2117bb9a2aaab103a1811d243443d76fdb62f904ac", [:make, :mix], [], "hexpm"},
   "commerce_billing": {:git, "https://github.com/nimish-mehta/commerce_billing.git", "30e99c3e1b58518002627f88cb0285a682d5ea74", []},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm"},
+  "cors_plug": {:hex, :cors_plug, "1.5.0", "6311ea6ac9fb78b987df52a7654136626a7a0c3b77f83da265f952a24f2fc1b0", [:mix], [{:plug, "~> 1.4", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
   "cowboy": {:hex, :cowboy, "1.1.2", "61ac29ea970389a88eca5a65601460162d370a70018afe6f949a29dca91f3bb0", [:rebar3], [{:cowlib, "~> 1.0.2", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.3.2", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},
   "cowlib": {:hex, :cowlib, "1.0.2", "9d769a1d062c9c3ac753096f868ca121e2730b9a377de23dec0f7e08b1df84ee", [:make], [], "hexpm"},
   "dataloader": {:hex, :dataloader, "1.0.0", "d461598ddaa822d32bd7aca59f4b592fb6c8b21d74723d9ce9a5b8e32c301a4d", [:mix], [{:ecto, ">= 0.0.0", [hex: :ecto, repo: "hexpm", optional: true]}], "hexpm"},
