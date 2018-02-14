@@ -1,0 +1,32 @@
+.image{
+  width: 60px;
+  height: 60px;
+  padding: 8px 18px 8px 8px;
+  flex: 0 0 auto;
+}
+
+.info{
+  flex: 1 1 auto;
+}
+
+.title{
+  font-weight: bold;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding: 6px 6px 6px 0;
+}
+
+.price{
+  color: #f00;
+}
+
+.add{
+  float: right;
+  padding-right: 12px;
+}
+
+.product{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}

@@ -8,6 +8,13 @@ defmodule Nectar.Schema.ProductTypes do
     field :id, :id
     field :name, :string
     field :description, :string
+    field :master_variant, :variant do
+      resolve fn p, _, _ ->
+        pid = p.id
+        query = from v in Nectar.Variant, where: v.product_id == ^pid
+        {:ok, Nectar.Repo.one(query)}
+      end
+    end
     field :images, list_of(:product_image), resolve: assoc(:images)
     # do
     #   resolve assoc(:images, fn query, args, _ctx ->
@@ -22,11 +29,20 @@ defmodule Nectar.Schema.ProductTypes do
     #end
   end
 
+  object :variant do
+    field :cost_price, :float
+  end
+
   object :product_image do
     field :product_id, :id
-    field :url, :string do
+    field :mobile, :string do
       resolve fn image, _, _ ->
         {:ok, Nectar.Uploader.ProductImage.url({image.image, image}, :mobile)}
+      end
+    end
+    field :thumb, :string do
+      resolve fn image, _, _ ->
+        {:ok, Nectar.Uploader.ProductImage.url({image.image, image}, :thumb)}
       end
     end
   end

@@ -44,6 +44,7 @@ defmodule Nectar.Admin.ProductController do
         |> put_flash(:info, "Product created successfully.")
         |> redirect(to: admin_product_path(conn, :index))
       {:error, changeset} ->
+        IO.inspect changeset.errors
         case product_params[:has_variant] do
           true -> render(conn, "new_multi.html", changeset: changeset)
           _ -> render(conn, "new_single.html", changeset: changeset)

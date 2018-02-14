@@ -6,10 +6,13 @@ import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
-import ProductsListWithData from './ProductsList'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
+
+import Home from './components/Home/Home'
+import ProductDetail from './components/ProductDetail/ProductDetail'
 
 const client = new ApolloClient({
-  link: new HttpLink(),
+  link: new HttpLink({ uri: process.env.REACT_APP_GRAPHQL_URL || "http://localhost:4000/graphql" }),
   cache: new InMemoryCache(),
 });
 
@@ -18,15 +21,14 @@ const client = new ApolloClient({
 class App extends Component {
   render() {
     return (
-      <ApolloProvider client={client}>
-         <div className="App">
-           <div className="App-header">
-             <img src={logo} className="App-logo" alt="logo" />
-             <h2>Welcome to Apollo</h2>
-           </div>
-           <ProductsListWithData />
-         </div>
-       </ApolloProvider>
+      <BrowserRouter>
+        <ApolloProvider client={client}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/products/:id" component={ProductDetail} />
+          </Switch>
+        </ApolloProvider>
+      </BrowserRouter>
     );
   }
 }
