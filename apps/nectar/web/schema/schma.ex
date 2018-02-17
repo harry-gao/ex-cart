@@ -1,6 +1,7 @@
 defmodule Nectar.Schema do
   use Absinthe.Schema
   import_types Nectar.Schema.ProductTypes
+  import_types Nectar.Schema.CartTypes
 
   alias Nectar.Resolvers
 
@@ -22,6 +23,11 @@ defmodule Nectar.Schema do
     @desc "Get all products"
     field :products, list_of(:product) do
       resolve &Resolvers.Product.list_products/3
+    end
+
+    field :cart, :cart do
+      arg :inputs, list_of(:cart_input)
+      resolve &Resolvers.Cart.cart_summary/3
     end
 
   end
