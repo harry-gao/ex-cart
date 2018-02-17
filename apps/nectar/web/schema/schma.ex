@@ -26,7 +26,7 @@ defmodule Nectar.Schema do
     end
 
     field :cart, :cart do
-      arg :inputs, list_of(:cart_input)
+      arg :input, list_of(:cart_input)
       resolve &Resolvers.Cart.cart_summary/3
     end
 

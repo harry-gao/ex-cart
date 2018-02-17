@@ -3,7 +3,7 @@ defmodule Nectar.Resolvers.Product do
 
   def list_products(_parent, _args, _resolution) do
     query = from p in Nectar.Product, preload: [:images]
-    {:ok, Nectar.Repo.all(query}
+    {:ok, Nectar.Repo.all(query)}
   end
 
 end
