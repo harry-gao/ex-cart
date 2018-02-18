@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 import styles from './ProductBrief.css'
 import addIcon from '../../assets/icons/add.png'
+import { getCart } from '../../helpers/CartHelper'
 
 const ProductBrief = ({product, addedCallback}) => {
   return <div className={styles.product}>
@@ -20,8 +21,7 @@ const ProductBrief = ({product, addedCallback}) => {
 };
 
 const handleAdd = (variantId, addedCallback) => {
-  const cartStr = localStorage.getItem('cart') || '{}'
-  const cartObj = JSON.parse(cartStr)
+  const cartObj = getCart() || {}
   cartObj[variantId] = (cartObj[variantId] || 0) + 1
   localStorage.setItem('cart', JSON.stringify(cartObj));
   const total = Object.values(cartObj).reduce((a, b) => a + b)

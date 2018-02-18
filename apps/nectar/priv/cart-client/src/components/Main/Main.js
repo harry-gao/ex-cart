@@ -6,6 +6,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import ProductDetail from '../ProductDetail/ProductDetail'
 import Cart from '../Cart/Cart'
 import Me from '../Me/Me'
+import { getCart } from '../../helpers/CartHelper'
 
 class Main extends Component {
   constructor(props){
@@ -33,8 +34,8 @@ class Main extends Component {
   }
 
   getCartCount(){
-    const cartObj = JSON.parse(localStorage.getItem('cart') || '{}')
-    return Object.values(cartObj).reduce((a, b) => a + b)
+    const cartObj = getCart() || {};
+    return Object.values(cartObj).reduce((a, b) => a + b, 0)
   }
 
   cartUpdated() {
