@@ -13,7 +13,7 @@ const ProductBrief = ({product, addedCallback}) => {
       </div>
       <div className={styles.price}> 
         ￥{product.masterVariant.costPrice}
-        <img src={addIcon} className={styles.add} onClick={()=> handleAdd(product.id, addedCallback)}/>
+        <img src={addIcon} className={styles.add} onClick={()=> handleAdd(product.masterVariant.id, addedCallback)}/>
       </div>
     </div>
      

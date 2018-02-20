@@ -44,5 +44,10 @@ defmodule Nectar.Schema.CartTypes do
         {:ok, p[:price]}
       end
     end
+    field :image, :string do
+      resolve fn p, _, _ -> 
+        {:ok, p[:image]} 
+      end
+    end
   end
 end

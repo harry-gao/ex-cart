@@ -4,6 +4,28 @@ import { graphql } from 'react-apollo';
 import styles from './Cart.css'
 import { getCart } from '../../helpers/CartHelper'
 
+const CartItem = ( {item: item}) =>{
+  return <div className={styles.item}>
+    <div className='fl w-20'>
+    <img src={item.image} className={styles.itemImage}></img>
+    </div>
+    <div className='fl w-80'>
+      <div className='pa2 courier f6'>{item.name}</div>
+      <div>
+        <div className="fl w-50 red pt2">￥{item.unitPrice}</div>
+        <div className="fl w-50">
+          <div className='cf dib'>
+            <a className="f6 fl link bb bt bl ph3 pv2 dib bg-washed-blue b br2 br--left bl" href="#0">-</a>
+            <a className="f6 fl link ba ph3 pv2 dib black" href="#0">{item.count}</a>
+            <a className="f6 fl link bb bt ph3 pv2 dib bg-washed-blue br2 br--right br" href="#0">+</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+}
+
 const CartContent = ({ data: {loading, error, cart }}) => {
   if (loading) {
     return <p>Loading ...</p>;
@@ -11,8 +33,14 @@ const CartContent = ({ data: {loading, error, cart }}) => {
   if (error) {
     return <p>{error.message}</p>;
   }
-  return <div className={styles.list}>
-    { cart.totalAmount }
+  return <div className={styles.cart}>
+    <div className={styles.main}>
+      { cart.items.map( item => < CartItem item={item} key={item.variantId}/> ) }
+    </div>
+    <div className={styles.footer}>
+      { cart.totalAmount }
+    </div>
+    
   </div>;
 };
 
@@ -29,6 +57,7 @@ const CartWithData = ({cartObj: cartObj}) => {
         unitPrice
         count
         variantId
+        image
       }
       totalAmount
     }

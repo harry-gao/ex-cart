@@ -27,6 +27,7 @@ const ProductListQuery = gql`
         thumb
       }
       masterVariant{
+        id
         costPrice
       }
     }

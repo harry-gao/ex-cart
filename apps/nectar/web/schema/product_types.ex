@@ -31,6 +31,7 @@ defmodule Nectar.Schema.ProductTypes do
 
   object :variant do
     field :cost_price, :float
+    field :id, :id
   end
 
   object :product_image do
