@@ -34,7 +34,6 @@ defmodule Nectar.Router do
   end
 
   pipeline :graphql do
-    plug set_guest
     plug Guardian.Plug.Pipeline,  module: Nectar.Guardian, error_handler: Nectar.Auth.HandleUnauthenticatedApi
     plug Guardian.Plug.VerifyHeader
     plug Guardian.Plug.LoadResource
@@ -43,6 +42,7 @@ defmodule Nectar.Router do
   scope "/", Nectar do
     pipe_through [:browser]
     resources "/sessions", SessionController, only: [:new, :create]
+    get "/guest_token", SessionController, :guest_token
   end
 
   scope "/", Nectar do

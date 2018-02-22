@@ -41,6 +41,14 @@ defmodule Nectar.SessionController do
     end
   end
 
+  def guest_token(conn, _params) do
+    attrs = %{email: "guest_#{random_string(8)}@t.com", password: "password", password_confirmation: "password"}
+    {:ok, user} = Nectar.Command.User.register_user(Nectar.Repo, attrs)
+    {:ok, token, _} = Nectar.Guardian.encode_and_sign(user)
+    
+    json conn, %{token: token}
+  end
+
   defp next_page_after_login(conn) do
     next_page = get_session(conn, :next_page)
     if next_page do
@@ -51,4 +59,8 @@ defmodule Nectar.SessionController do
       home_path(conn, :index)
     end
   end
+
+  def random_string(length) do
+    :crypto.strong_rand_bytes(length) |> Base.url_encode64 |> binary_part(0, length)
+  end 
 end
