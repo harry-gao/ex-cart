@@ -49,8 +49,8 @@ const EmptyCart = () => {
 
 const CartWithData = ({cartObj: cartObj}) => {
   const cartQuery = gql`
-  query CartQuery($input: [CartInput]!){
-    cart(input: $input){
+  query CartQuery{
+    cart{
       items{
         name
         unitPrice

@@ -32,13 +32,13 @@ defmodule Nectar.LineItem do
     |> validate_required(@required_fields)
   end
 
-  @required_fields ~w(order_id unit_price)a
+  @required_fields ~w(order_id unit_price, user_id, variant_id)a
   @optional_fields ~w()a
   def create_changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> foreign_key_constraint(:order_id)
+    #|> foreign_key_constraint(:order_id)
   end
 
   @required_fields ~w(add_quantity unit_price)a
