@@ -5,6 +5,7 @@ defmodule Nectar.LineItem do
     belongs_to :variant, Nectar.Variant
     belongs_to :order, Nectar.Order
     belongs_to :shipment_unit, Nectar.ShipmentUnit
+    belongs_to :user, Nectar.User
 
     field :add_quantity, :integer, virtual: true # No defaults to avoid issues with being provided same value as default.
     field :unit_price, :decimal

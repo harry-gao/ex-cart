@@ -11,13 +11,17 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 
-class Main extends Component {
+class MainComponent extends Component {
   constructor(props){
     super(props);
-    this.state = { cartCount: 1 }
+    //this.state = { cartCount: props.data.cart.count }
   }
 
   render() {
+    if(this.props.data.loading)
+      return <p> loading </p>
+    if(this.props.data.error)
+      return <p> {this.props.data.error} </p>
     return (
       <div className={styles.site}>
         <div className={styles.header}>
@@ -30,7 +34,7 @@ class Main extends Component {
         </Switch>
         </div>
         <div className={styles.footer}>
-          <Footer cartCount={this.state.cartCount}/>
+          <Footer cartCount={this.props.data.cart.count}/>
         </div>
       </div>
     );
@@ -46,6 +50,14 @@ class Main extends Component {
   }
 }
 
+const CartCountQuery = gql`
+   query CartCountQuery {
+    cart{
+      count
+    }
+   }
+ `;
+ const Main = graphql(CartCountQuery)(MainComponent);
 
 
 export default Main;

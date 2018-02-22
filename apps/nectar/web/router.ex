@@ -37,6 +37,7 @@ defmodule Nectar.Router do
     plug Guardian.Plug.Pipeline,  module: Nectar.Guardian, error_handler: Nectar.Auth.HandleUnauthenticatedApi
     plug Guardian.Plug.VerifyHeader
     plug Guardian.Plug.LoadResource
+    plug Nectar.Plugs.GraphqlContext
   end
 
   scope "/", Nectar do
@@ -148,7 +149,9 @@ defmodule Nectar.Router do
     Absinthe.Plug.GraphiQL,
     [
       schema: Nectar.Schema,
-      interface: :simple
+      interface: :simple,
+      default_url: "http://localhost:4000/q/graphql",
+      #default_headers: {__MODULE__, :graphiql_headers}
     ]
 
   use Nectar.RouteExtender
@@ -156,4 +159,11 @@ defmodule Nectar.Router do
   # scope "/api", Nectar do
   #   pipe_through :api
   # end
+
+  def graphiql_headers(conn) do
+    %{
+      "Authorization" => "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJOZWN0YXIuZGV2IiwiZXhwIjoxNTIxODY4MjYyLCJpYXQiOjE1MTkyNzYyNjIsImlzcyI6Ik5lY3Rhci5kZXYiLCJqdGkiOiI4MGUzNzkwNC1kNGY3LTQ2YWItYmRhOC1mYmU5ZjRmNTcyMGMiLCJuYmYiOjE1MTkyNzYyNjEsInN1YiI6IjEwIiwidHlwIjoiYWNjZXNzIn0.AZZpj4veNbOvLe2HjGJb71AcP3EBrUjxWvrJzRBok_xegAinzNmDKfZK0EqTPpLsCgsdpAMyZa0vUCMYL_yJ8Q"
+    }
+  end
+  
 end

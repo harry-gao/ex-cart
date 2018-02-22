@@ -1,9 +1,16 @@
 defmodule Nectar.Resolvers.Cart do
   import Ecto.Query, only: [from: 2]
 
+  def cart_item_count(_, _, %{context: %{current_user: current_user}}) do
+    user_id = current_user.id
+    query = from i in Nectar.LineItem,
+      where: (i.user_id == ^user_id and is_nil(i.order_id)),
+      select: count(i.id)
+    {:ok, Nectar.Repo.one!(query)}
+  end
+  
   #args = [%{variant_id: 27, count: 2}, %{variant_id: 28, count: 4}]
-  def cart_summary(_parent, args, _resolution) do
-    
+  def cart_items(_parent, args, _resolution) do
     ids = args[:input] |> Enum.map(&(&1[:variant_id]))
     query = from v in Nectar.Variant,
               join: p in Nectar.Product,

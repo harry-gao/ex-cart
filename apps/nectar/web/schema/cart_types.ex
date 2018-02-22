@@ -3,22 +3,15 @@ defmodule Nectar.Schema.CartTypes do
 
   use Absinthe.Ecto, repo: Nectar.Repo
   import Ecto.Query
-
-  input_object :cart_input do
-    field :variant_id, non_null(:integer)
-    field :count, non_null(:integer)
-  end
+  alias Nectar.Resolvers
 
   object :cart do
-    field :items, list_of(:cart_item) do
-      resolve fn p, _, _ ->
-        {:ok, p[:items]}
-      end
+    field :count, :integer do
+      resolve &Resolvers.Cart.cart_item_count/3
     end
-    field :total_amount, :float do
-      resolve fn p, _, _ ->
-        {:ok, p[:total]}
-      end
+
+    field :items, list_of(:cart_item) do
+      resolve &Resolvers.Cart.cart_items/3
     end
   end
 

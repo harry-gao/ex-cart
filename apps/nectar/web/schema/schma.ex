@@ -31,8 +31,7 @@ defmodule Nectar.Schema do
     # end
 
     field :cart, :cart do
-      arg :token, :string
-      resolve &Resolvers.Cart.cart_summary/3
+      resolve fn _,_,_ -> {:ok, %{}} end
     end
 
   end
