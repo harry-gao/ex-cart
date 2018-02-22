@@ -25,8 +25,13 @@ defmodule Nectar.Schema do
       resolve &Resolvers.Product.list_products/3
     end
 
+    # field :cart, :cart do
+    #   arg :input, list_of(:cart_input)
+    #   resolve &Resolvers.Cart.cart_summary/3
+    # end
+
     field :cart, :cart do
-      arg :input, list_of(:cart_input)
+      arg :token, :string
       resolve &Resolvers.Cart.cart_summary/3
     end
 

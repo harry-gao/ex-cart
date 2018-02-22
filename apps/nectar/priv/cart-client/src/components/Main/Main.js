@@ -6,12 +6,15 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import ProductDetail from '../ProductDetail/ProductDetail'
 import Cart from '../Cart/Cart'
 import Me from '../Me/Me'
-import { getCart } from '../../helpers/CartHelper'
+
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+
 
 class Main extends Component {
   constructor(props){
     super(props);
-    this.state = { cartCount: this.getCartCount() }
+    this.state = { cartCount: 1 }
   }
 
   render() {
@@ -33,14 +36,16 @@ class Main extends Component {
     );
   }
 
-  getCartCount(){
-    const cartObj = getCart() || {};
-    return Object.values(cartObj).reduce((a, b) => a + b, 0)
-  }
+  // getCartCount(){
+  //   const cartObj = getCart() || {};
+  //   return Object.values(cartObj).reduce((a, b) => a + b, 0)
+  // }
 
   cartUpdated() {
     this.setState( {cartCount: this.getCartCount()} )
   }
 }
+
+
 
 export default Main;

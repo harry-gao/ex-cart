@@ -33,6 +33,13 @@ defmodule Nectar.Router do
     plug :fetch_session
   end
 
+  pipeline :graphql do
+    plug set_guest
+    plug Guardian.Plug.Pipeline,  module: Nectar.Guardian, error_handler: Nectar.Auth.HandleUnauthenticatedApi
+    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.LoadResource
+  end
+
   scope "/", Nectar do
     pipe_through [:browser]
     resources "/sessions", SessionController, only: [:new, :create]
@@ -129,9 +136,13 @@ defmodule Nectar.Router do
     post "/contentimage", ContentImageController, :upload
   end
 
-  forward "/graphql",
-    Absinthe.Plug,
-    [schema: Nectar.Schema]
+  scope "/q" do
+    pipe_through [:graphql]
+    forward "/graphql",
+      Absinthe.Plug,
+      [schema: Nectar.Schema]
+  end
+  
 
   forward "/graphiql",
     Absinthe.Plug.GraphiQL,

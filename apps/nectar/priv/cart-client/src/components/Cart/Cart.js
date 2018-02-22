@@ -15,13 +15,12 @@ const CartItem = ( {item: item}) =>{
         <div className="fl w-50 red pt2">￥{item.unitPrice}</div>
         <div className="fl w-50">
           <div className='cf dib'>
-            <a className="f6 fl link bb bt bl ph3 pv2 dib bg-washed-blue b br2 br--left bl" href="#0">-</a>
-            <a className="f6 fl link ba ph3 pv2 dib black" href="#0">{item.count}</a>
-            <a className="f6 fl link bb bt ph3 pv2 dib bg-washed-blue br2 br--right br" href="#0">+</a>
+            <span className="f6 fl bb bt bl ph3 pv2 dib bg-washed-blue b br2 br--left bl">-</span>
+            <span className="f6 fl ba ph3 pv2 dib black">{item.count}</span>
+            <span className="f6 fl bb bt ph3 pv2 dib bg-washed-blue br2 br--right br">+</span>
           </div>
         </div>
       </div>
-      
     </div>
   </div>
 }
@@ -37,7 +36,7 @@ const CartContent = ({ data: {loading, error, cart }}) => {
     <div className={styles.main}>
       { cart.items.map( item => < CartItem item={item} key={item.variantId}/> ) }
     </div>
-    <div className={styles.footer}>
+    <div className={styles.footer + ' b--black-50 bt'}>
       { cart.totalAmount }
     </div>
     
@@ -79,28 +78,6 @@ const Cart = () =>{
   else
     return <CartWithData cartObj={cartObj}/>
 }
-
-
-
-
-// const cartQuery = gql`
-//   query CartQuery($input: [CartInput]!){
-//     cart(input: $input){
-//       items{
-//         name
-//         unitPrice
-//         count
-//         variantId
-//       }
-//       totalAmount
-//     }
-//   }
-// `;
-
-// const cartObj = getCart();
-// const cartInput = Object.entries(cartObj).map(entry => ({variantId: parseInt(entry[0]), count: entry[1]}))
-
-// const CartWithData = 
 
 
 export default Cart;

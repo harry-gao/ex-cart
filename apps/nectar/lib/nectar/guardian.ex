@@ -2,6 +2,7 @@ defmodule Nectar.Guardian do
   use Guardian, otp_app: :nectar
 
   def subject_for_token(resource, _claims) do
+    binding.pry
     {:ok, to_string(resource.id)}
   end
 
