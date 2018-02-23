@@ -11,53 +11,23 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 
-class MainComponent extends Component {
-  constructor(props){
-    super(props);
-    //this.state = { cartCount: props.data.cart.count }
-  }
-
-  render() {
-    if(this.props.data.loading)
-      return <p> loading </p>
-    if(this.props.data.error)
-      return <p> {this.props.data.error} </p>
-    return (
-      <div className={styles.site}>
-        <div className={styles.header}>
-        </div>
-        <div className={styles.main}>
-        <Switch> 
-          <Route exact path="/" render={(props) => ( <ProductListWithData {...props} cartAdded={this.cartUpdated.bind(this)}/> )}  />
-          <Route path="/cart" component={Cart} />
-          <Route path="/me" component={Me} />
-        </Switch>
-        </div>
-        <div className={styles.footer}>
-          <Footer cartCount={this.props.data.cart.count}/>
-        </div>
+const Main = () =>{
+  return (
+    <div className={styles.site}>
+      <div className={styles.header}>
       </div>
-    );
-  }
-
-  // getCartCount(){
-  //   const cartObj = getCart() || {};
-  //   return Object.values(cartObj).reduce((a, b) => a + b, 0)
-  // }
-
-  cartUpdated() {
-    this.setState( {cartCount: this.getCartCount()} )
-  }
+      <div className={styles.main}>
+      <Switch> 
+        <Route exact path="/" render={(props) => ( <ProductListWithData {...props} /> )}  />
+        <Route path="/cart" component={Cart} />
+        <Route path="/me" component={Me} />
+      </Switch>
+      </div>
+      <div className={styles.footer}>
+        <Footer/>
+      </div>
+    </div>
+  );
 }
-
-const CartCountQuery = gql`
-   query CartCountQuery {
-    cart{
-      count
-    }
-   }
- `;
- const Main = graphql(CartCountQuery)(MainComponent);
-
 
 export default Main;

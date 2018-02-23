@@ -12,11 +12,11 @@ const CartItem = ( {item: item}) =>{
     <div className='fl w-80'>
       <div className='pa2 courier f6'>{item.name}</div>
       <div>
-        <div className="fl w-50 red pt2">￥{item.unitPrice}</div>
+        <div className="fl w-50 red pt2">￥{item.price}</div>
         <div className="fl w-50">
           <div className='cf dib'>
             <span className="f6 fl bb bt bl ph3 pv2 dib bg-washed-blue b br2 br--left bl">-</span>
-            <span className="f6 fl ba ph3 pv2 dib black">{item.count}</span>
+            <span className="f6 fl ba ph3 pv2 dib black">{item.quantity}</span>
             <span className="f6 fl bb bt ph3 pv2 dib bg-washed-blue br2 br--right br">+</span>
           </div>
         </div>
@@ -53,21 +53,15 @@ const CartWithData = ({cartObj: cartObj}) => {
     cart{
       items{
         name
-        unitPrice
-        count
+        price
+        quantity
         variantId
         image
       }
-      totalAmount
     }
   }
   `;
-
-  const cartInput = Object.entries(cartObj).map(entry => ({variantId: parseInt(entry[0]), count: entry[1]}))
-
-  const Comp = graphql(cartQuery, {
-      options: { variables: { input: cartInput } },
-    })(CartContent);
+  const Comp = graphql(cartQuery)(CartContent);
   return <Comp />
 }
 

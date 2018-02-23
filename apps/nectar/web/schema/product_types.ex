@@ -5,7 +5,7 @@ defmodule Nectar.Schema.ProductTypes do
   import Ecto.Query
 
   object :product do
-    field :id, :id
+    field :id, :integer
     field :name, :string
     field :description, :string
     field :master_variant, :variant do
@@ -31,7 +31,7 @@ defmodule Nectar.Schema.ProductTypes do
 
   object :variant do
     field :cost_price, :float
-    field :id, :id
+    field :id, :integer
   end
 
   object :product_image do

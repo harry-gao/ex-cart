@@ -2,6 +2,7 @@ defmodule Nectar.Schema do
   use Absinthe.Schema
   import_types Nectar.Schema.ProductTypes
   import_types Nectar.Schema.CartTypes
+  import_types Nectar.Schema.LineItemTypes
 
   alias Nectar.Resolvers
 
@@ -25,15 +26,18 @@ defmodule Nectar.Schema do
       resolve &Resolvers.Product.list_products/3
     end
 
-    # field :cart, :cart do
-    #   arg :input, list_of(:cart_input)
-    #   resolve &Resolvers.Cart.cart_summary/3
-    # end
-
     field :cart, :cart do
       resolve fn _,_,_ -> {:ok, %{}} end
     end
+  end
 
+  mutation do
+    @desc "add to cart"
+    field :add_to_cart, type: :line_item do
+      arg :variant_id, non_null(:integer)
+ 
+      resolve &Resolvers.Cart.add_to_cart/3
+    end
   end
 
 end

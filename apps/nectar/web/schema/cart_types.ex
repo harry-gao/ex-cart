@@ -27,12 +27,12 @@ defmodule Nectar.Schema.CartTypes do
         {:ok, p[:name]}
       end
     end
-    field :count, :integer do
+    field :quantity, :integer do
       resolve fn p, _, _ ->
-        {:ok, p[:count]}
+        {:ok, p[:quantity]}
       end
     end
-    field :unit_price, :integer do
+    field :price, :integer do
       resolve fn p, _, _ ->
         {:ok, p[:price]}
       end

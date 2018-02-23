@@ -18,4 +18,11 @@ defmodule Nectar.Query.LineItem do
 
   def in_order_with_variant(repo, order, variant),
     do: repo.one(in_order_with_variant(order, variant))
+
+  def in_cart(repo, variant_id, user_id) do
+    query = from l in Nectar.LineItem,
+      where: l.user_id == ^user_id and l.variant_id == ^variant_id
+    
+    query  |> repo.one
+  end
 end
