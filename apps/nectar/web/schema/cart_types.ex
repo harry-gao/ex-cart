@@ -17,6 +17,11 @@ defmodule Nectar.Schema.CartTypes do
 
 
   object :cart_item do
+    field :id, :integer do
+      resolve fn p, _, _ ->
+        {:ok, p[:id]}
+      end
+    end
     field :variant_id, :integer do
       resolve fn p, _, _ ->
         {:ok, p[:variant_id]}

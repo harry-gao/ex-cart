@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -13,15 +13,15 @@ const FooterComponent = ({ data: {loading, error, cart }}) => {
   return (
     <div className={styles.footer}>
       <div className={styles.hoe}>
-        <Link to='/'><img src={homeIcon} className={styles.icon}/> </Link>
+        <Link to='/'><img src={homeIcon} className={styles.icon} alt="home"/> </Link>
       </div>
       <div className={styles.cart}>
-        <Link to='/cart'> <img src={cartIcon} className={styles.icon}/> 
+        <Link to='/cart'> <img src={cartIcon} className={styles.icon} alt="cart"/> 
           {cart  && cart.count >0 && cart.count}
         </Link>
       </div>
       <div className={styles.me}>
-        <Link to='/me'> <img src={userIcon} className={styles.icon}/> </Link>
+        <Link to='/me'> <img src={userIcon} className={styles.icon} alt="me"/> </Link>
       </div>
     </div>
   );     
