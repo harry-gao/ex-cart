@@ -1,25 +1,39 @@
 import React from 'react';
 import styles from './Cart.css'
+import { Checkbox } from 'react-bootstrap';
 
-const CartItem = ( {item, quantityChanged} ) =>{
+const CartItem = ( {item, quantityChanged, checkChanged} ) =>{
   return <div className={styles.item}>
-    <div className='fl w-20'>
-    <img src={item.image} className={styles.itemImage} alt=""></img>
+    <div className={styles.checkbox}>
+      <div className={styles.round}>
+        <input type="checkbox" id={'checkbox_' + item.id} 
+          defaultChecked={item.selected} 
+          onChange={ () => checkChanged(item.id)} />
+        <label htmlFor={'checkbox_' + item.id}></label>
+      </div>
     </div>
-    <div className='fl w-80'>
+    <div className={styles.adjustor}>
+      <div className={styles.adjustorbtn}
+        onClick={() => {quantityChanged(item.id, item.quantity + 1)}}>+</div>
+      <div className={styles.adjustortext}>
+        <span>{item.quantity}</span>
+      </div>
+      <div className={styles.adjustorbtn}
+        onClick={() => {quantityChanged(item.id, item.quantity - 1)}}>-</div>
+    </div>
+    
+    <div className={styles.content}>
       <div className='pa2 courier f6'>{item.name}</div>
       <div>
         <div className="fl w-50 red pt2">￥{item.price}</div>
         <div className="fl w-50">
           <div className='cf dib'>
-            <span className="f6 fl bb bt bl ph3 pv2 dib bg-washed-blue b br2 br--left bl"
-              onClick={() => {quantityChanged(item.id, item.quantity - 1)}}>-</span>
-            <span className="f6 fl ba ph3 pv2 dib black">{item.quantity}</span>
-            <span className="f6 fl bb bt ph3 pv2 dib bg-washed-blue br2 br--right br"
-              onClick={() => {quantityChanged(item.id, item.quantity + 1)}}>+</span>
           </div>
         </div>
       </div>
+    </div>
+    <div className={styles.image}>
+      <img src={item.image} className={styles.itemImage} alt=""></img>
     </div>
   </div>
 }

@@ -3,6 +3,7 @@ import { graphql, withApollo, compose } from 'react-apollo';
 import styles from './Cart.css';
 import CartItem from './CartItem';
 import EmptyCart from './EmptyCart';
+import CartFooter from './CartFooter';
 import ReactModal from 'react-modal';
 import {UpdateCartMutation, CartCountQuery} from '../queries'
 
@@ -14,7 +15,7 @@ class CartWithData extends Component {
   constructor(props){
     super(props);
     this.state = {
-      items: this.props.items,
+      items: this.props.items.map(item => {return {...item, selected: true }}),
       dirty: false,
       showModal: false
     };
@@ -36,6 +37,13 @@ class CartWithData extends Component {
     }
   }
 
+  handleChangeChk(itemId){
+    let newItems = this.state.items.map( item => {
+      return item.id === itemId ?  { ...item, selected: !item.selected } : item
+    })
+    this.setState({items: newItems});
+  }
+
   componentWillUnmount(){
     if(this.state.dirty)
     {
@@ -51,10 +59,12 @@ class CartWithData extends Component {
   render(){
     if(this.state.items.length <= 0)
       return <div> 购物车还没有东西哦 </div>
+    
     return <div className={styles.cart}>
       <div className={styles.main}>
-        { this.state.items.map( item => < CartItem item={item} key={item.variantId} quantityChanged={this.quantityChanged.bind(this)}/> ) }
+        { this.state.items.map( item => < CartItem item={item} key={item.variantId} quantityChanged={this.quantityChanged.bind(this)} checkChanged={this.handleChangeChk.bind(this)}/> ) }
       </div>
+      <CartFooter items={this.state.items} />
       <ReactModal 
            isOpen={this.state.showModal}
            contentLabel="移除商品"
