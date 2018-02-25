@@ -38,6 +38,13 @@ defmodule Nectar.Schema do
  
       resolve &Resolvers.Cart.add_to_cart/3
     end
+
+    @desc "update cart"
+    field :update_cart, type: :cart do
+      arg :items, list_of(:line_item_input)
+ 
+      resolve &Resolvers.Cart.update_cart/3
+    end
   end
 
 end

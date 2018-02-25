@@ -52,30 +52,34 @@ defmodule Nectar.LineItem do
     #|> quantity_update(params)
   end
 
-  @required_fields ~w(quantity unit_price)a
+  @required_fields ~w(quantity)a
   @optional_fields ~w(delete)a
   def direct_quantity_update_changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> quantity_update(params)
-    |> set_delete_action
+    |> update_quantity(params)
+    #|> set_delete_action
   end
 
-  defp quantity_update(changeset, params) do
-    changeset
-    |> validate_number(:quantity, greater_than: 0)
-    |> update_total_changeset(params)
+  defp update_quantity(changeset, %{quantity: quantity}) do
+    put_change(changeset, :quantity, quantity)    
   end
 
-  defp update_total_changeset(model, params) when params == %{}, do: model
-  defp update_total_changeset(model, _params) do
-    quantity       = get_field(model, :quantity) |> Decimal.new
-    unit_price     = get_field(model, :unit_price)
-    cost           = Decimal.mult(quantity, unit_price)
-    # always based on the current price
-    put_change(model, :total, cost)
-  end
+  # defp quantity_update(changeset, params) do
+  #   changeset
+  #   |> validate_number(:quantity, greater_than: 0)
+  #   |> update_total_changeset(params)
+  # end
+
+  # defp update_total_changeset(model, params) when params == %{}, do: model
+  # defp update_total_changeset(model, _params) do
+  #   quantity       = get_field(model, :quantity) |> Decimal.new
+  #   unit_price     = get_field(model, :unit_price)
+  #   cost           = Decimal.mult(quantity, unit_price)
+  #   # always based on the current price
+  #   put_change(model, :total, cost)
+  # end
 
 
   defp add_to_existing_quantity(%Ecto.Changeset{valid?: false} = changeset), do: changeset

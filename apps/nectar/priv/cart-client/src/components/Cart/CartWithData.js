@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import gql from 'graphql-tag';
-import { graphql, withApollo } from 'react-apollo';
+import { graphql, withApollo, compose } from 'react-apollo';
 import styles from './Cart.css';
 import CartItem from './CartItem';
 const _ = require('lodash');
@@ -10,7 +10,16 @@ class CartWithData extends Component {
   constructor(props){
     super(props);
     this.state = {
-      items: this.props.items
+      items: this.props.items,
+      dirty: false
+    }
+  }
+
+  componentWillUnmount(){
+    if(this.state.dirty)
+    {
+      const items = this.state.items.map( item => { return {id: item.id, quantity: item.quantity} })
+      this.props.updateLineItems(items)
     }
   }
 
@@ -26,7 +35,7 @@ class CartWithData extends Component {
     let newItems = _.map(this.state.items, item =>
       item.id == itemId ? Object.assign({}, item, {quantity: newQuantity}) : item
     );
-    this.setState({items: newItems});
+    this.setState({items: newItems, dirty: true});
     
     this.updateCountInCache(newItems.reduce( (accu, item) => accu + item.quantity, 0));
   }
@@ -52,5 +61,33 @@ class CartWithData extends Component {
   }
 }
 
-export default withApollo(CartWithData)
-//export default CartWithData;
+const updateCart = gql`
+  mutation UpdateCart($items: [LineItemInput]){
+    updateCart(items: $items){
+      items{
+        name
+        id
+        image
+        variantId
+        quantity
+        price
+      }
+    }
+  }
+`;
+
+const mutation = graphql(updateCart, {
+  props: ({ ownProps, mutate }) => ({
+    updateLineItems: (lineItems) => mutate({ variables: { items: lineItems } }),
+  }),
+  options: {
+    refetchQueries: [
+      'CartCountQuery',
+    ],
+  },
+})
+
+export default compose(
+  withApollo,
+  mutation
+)(CartWithData)
