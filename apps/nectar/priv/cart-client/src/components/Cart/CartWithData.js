@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import gql from 'graphql-tag';
 import { graphql, withApollo, compose } from 'react-apollo';
 import styles from './Cart.css';
 import CartItem from './CartItem';
 import EmptyCart from './EmptyCart';
 import ReactModal from 'react-modal';
+import {UpdateCartMutation, CartCountQuery} from '../queries'
 
 const _ = require('lodash');
 
@@ -82,14 +82,6 @@ class CartWithData extends Component {
 
   updateCountInCache(newCount){
     //update the count in cache. ugly....
-    const CartCountQuery = gql`
-      query CartCountQuery {
-        cart{
-          count
-        }
-      }
-    `;
-
     const data = this.props.client.readQuery({ query: CartCountQuery });
     
     this.props.client.writeQuery({
@@ -101,22 +93,8 @@ class CartWithData extends Component {
   }
 }
 
-const updateCart = gql`
-  mutation UpdateCart($items: [LineItemInput]){
-    updateCart(items: $items){
-      items{
-        id
-        name
-        price
-        quantity
-        variantId
-        image
-      }
-    }
-  }
-`;
 
-const mutation = graphql(updateCart, {
+const mutation = graphql(UpdateCartMutation, {
   props: ({ ownProps, mutate }) => ({
     updateLineItems: (lineItems) => mutate({ variables: { items: lineItems } }),
   }),

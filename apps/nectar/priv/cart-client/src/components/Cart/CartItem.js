@@ -1,7 +1,4 @@
 import React from 'react';
-import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
-
 import styles from './Cart.css'
 
 const CartItem = ( {item, quantityChanged} ) =>{

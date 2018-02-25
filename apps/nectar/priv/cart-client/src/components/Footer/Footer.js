@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { CartCountQuery} from '../queries';
 
 import styles from './Footer.css'
 import cartIcon from '../../assets/icons/cart.png'
@@ -26,14 +26,6 @@ const FooterComponent = ({ data: {loading, error, cart }}) => {
     </div>
   );     
 }
-
-const CartCountQuery = gql`
-   query CartCountQuery {
-    cart{
-      count
-    }
-   }
- `;
 
  const Footer = graphql(CartCountQuery)(FooterComponent);
 

@@ -1,25 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import { AddToCartMutation } from '../queries';
 
 import styles from './ProductBrief.css'
 import addIcon from '../../assets/icons/add.png'
-
-const addToCart = gql`
-  mutation($variantId: Int!){
-    addToCart(variantId: $variantId){
-      items{
-        id
-        name
-        price
-        quantity
-        variantId
-        image
-      }
-    }
-  }
-`;
 
 const ProductBrief = ({product, onAdd}) => {
   return <div className={styles.product}>
@@ -38,7 +23,7 @@ const ProductBrief = ({product, onAdd}) => {
 };
 
 
-const ProductBriefContainer = graphql(addToCart, {
+const ProductBriefContainer = graphql(AddToCartMutation, {
   props: ({ ownProps, mutate }) => ({
     onAdd: (variantId) => mutate({ variables: { variantId } }),
     ...ownProps

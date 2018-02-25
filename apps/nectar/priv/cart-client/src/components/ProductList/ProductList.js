@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import ProductBriefContainer from '../ProductBrief/ProductBrief'
 import styles from './ProductList.css'
-
+import {ProductListQuery} from '../queries'
 
 const ProductList = ({ data: {loading, error, products }}) => {
   if (loading) {
@@ -17,22 +16,6 @@ const ProductList = ({ data: {loading, error, products }}) => {
     { products.map( p => <ProductBriefContainer product={p} key={p.id}/> ) }
   </div>;
 };
-
-const ProductListQuery = gql`
-   query ProductListQuery {
-    products{
-      id
-      name
-      images{
-        thumb
-      }
-      masterVariant{
-        id
-        costPrice
-      }
-    }
-   }
- `;
 
 const ProductListWithData = graphql(ProductListQuery)(ProductList);
 
