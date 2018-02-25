@@ -33,7 +33,7 @@ defmodule Nectar.Schema do
 
   mutation do
     @desc "add to cart"
-    field :add_to_cart, type: :line_item do
+    field :add_to_cart, type: :cart do
       arg :variant_id, non_null(:integer)
  
       resolve &Resolvers.Cart.add_to_cart/3

@@ -9,7 +9,14 @@ import addIcon from '../../assets/icons/add.png'
 const addToCart = gql`
   mutation($variantId: Int!){
     addToCart(variantId: $variantId){
-      id
+      items{
+        id
+        name
+        price
+        quantity
+        variantId
+        image
+      }
     }
   }
 `;

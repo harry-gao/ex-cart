@@ -25,6 +25,8 @@ defmodule Nectar.Resolvers.Cart do
       %LineItem{id: id, quantity: quantity} = item ->
         LineItem.quantity_changeset(item, %{add_quantity: 1})
         |> Repo.update 
+        
+      get_user_cart(user_id)
     end
   end
 

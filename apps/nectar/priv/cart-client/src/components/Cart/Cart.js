@@ -19,17 +19,12 @@ const CartContent = ({ data: {loading, error, cart }}) => {
   if (error) {
     return <p>{error.message}</p>;
   }
-  if(cart.items.size === 0)
-    return <EmptyCart/>
-  else
 
   return <CartWithData items={cart.items}/>
 };
 
 
-
-const Cart = () => {
-  const cartQuery = gql`
+const cartQuery = gql`
   query CartQuery{
     cart{
       items{
@@ -43,8 +38,7 @@ const Cart = () => {
     }
   }
   `;
-  const Comp = graphql(cartQuery)(CartContent);
-  return <Comp />
-}
+
+const Cart = graphql(cartQuery)(CartContent);
 
 export default Cart;
