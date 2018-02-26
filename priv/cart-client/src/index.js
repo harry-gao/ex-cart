@@ -7,12 +7,10 @@ require('isomorphic-fetch');
 
 const hasToken = localStorage.getItem("token") !== null;
 
-process.env.REACT_APP_TOKEN_URL || "http://localhost:4000/q/graphql"
-
 if(hasToken)
   ReactDOM.render(<App />, document.getElementById('root'));
 else
-  fetch(`#{process.env.APP_URL}/guest_token`)
+  fetch(`${process.env.APP_URL}/guest_token`)
     .then( (resp) => resp.json() )
     .then( (json) => {
       localStorage.setItem("token", json["token"])
