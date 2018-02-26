@@ -1,3 +1,0 @@
-cd apps/nectar
-brunch build --production
-mix phoenix.digest
