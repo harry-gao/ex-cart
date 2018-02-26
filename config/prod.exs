@@ -41,7 +41,7 @@ config :logger, level: :info
 #   private_key: System.get_env("BRAINTREE_PRIVATE_KEY")
 
 config :arc,
-  bucket: System.get_env("S3_BUCKET_REPO")
+  bucket: System.get_env("S3_BUCKET_REPO"),
   virtual_host: true
 
 config :ex_aws,
