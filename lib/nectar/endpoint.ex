@@ -13,7 +13,7 @@ defmodule Nectar.Endpoint do
   
   plug Plug.Static,
     at: "/", from: {:nectar, "priv/cart-client/build"},
-    only: ~w(index.html favicon.ico static)
+    only: ~w(index.html favicon.ico static service-worker.js)
   
   
   plug Plug.Static,
