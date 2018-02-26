@@ -9,11 +9,12 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-Seed.LoadCountry.seed!
-Seed.CreateZone.seed!
-Nectar.Repo.insert!(%Nectar.User{name: "Admin", email: "admin@vinsol.com", encrypted_password: Comeonin.Bcrypt.hashpwsalt("vinsol"), is_admin: true})
-Seed.LoadSettings.seed!
-Seed.CreateShippingMethod.seed!
-Seed.CreateTax.seed!
-Seed.CreatePaymentMethod.seed!
-Seed.LoadProducts.seed!
+
+# Seed.LoadCountry.seed!
+# Seed.CreateZone.seed!
+Nectar.Repo.insert!(%Nectar.User{name: "Admin", email: "harry@harrygao.com", encrypted_password: Comeonin.Bcrypt.hashpwsalt("test123..."), is_admin: true})
+# Seed.LoadSettings.seed!
+# Seed.CreateShippingMethod.seed!
+# Seed.CreateTax.seed!
+# Seed.CreatePaymentMethod.seed!
+# Seed.LoadProducts.seed!
