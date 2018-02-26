@@ -42,6 +42,7 @@ config :logger, level: :info
 
 config :arc,
   bucket: System.get_env("S3_BUCKET_REPO")
+  virtual_host: true
 
 config :ex_aws,
   debug_requests: true,
