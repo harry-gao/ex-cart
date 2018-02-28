@@ -56,6 +56,14 @@ export const UpdateCartMutation = gql`
   }
 `;
 
+export const SubmitOrderMutation = gql`
+  mutation SubmitOrder($itemIds: [Int]){
+    submitOrder(itemIds: $itemIds){
+      id
+    }
+  }
+`;
+
 export const AddToCartMutation = gql`
   mutation($variantId: Int!){
     addToCart(variantId: $variantId){

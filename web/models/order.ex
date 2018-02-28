@@ -74,6 +74,15 @@ defmodule Nectar.Order do
     |> cast(%{order_state: "cancelled"}, ~w(order_state))
   end
 
+  @required_fields ~w(user_id)a
+  @optional_fields ~w()a
+  def create_changeset(model, params \\ %{}) do
+    model
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
+    |> set_state("created")
+  end
+
   @required_fields ~w(state)a
   @optional_fields ~w(same_as_billing)a
   def address_changeset(model, params \\ %{}) do
@@ -215,6 +224,10 @@ defmodule Nectar.Order do
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> validate_order_confirmed
+  end
+
+  defp set_state(changeset, state) do
+    put_change(changeset, :state, state)
   end
 
   defp validate_order_confirmed(model) do

@@ -5,7 +5,7 @@ import CartItem from './CartItem';
 import EmptyCart from './EmptyCart';
 import CartFooter from './CartFooter';
 import ReactModal from 'react-modal';
-import {UpdateCartMutation, CartCountQuery} from '../queries'
+import {UpdateCartMutation, CartCountQuery, SubmitOrderMutation} from '../queries'
 
 const _ = require('lodash');
 
@@ -64,7 +64,7 @@ class CartWithData extends Component {
       <div className={styles.main}>
         { this.state.items.map( item => < CartItem item={item} key={item.variantId} quantityChanged={this.quantityChanged.bind(this)} checkChanged={this.handleChangeChk.bind(this)}/> ) }
       </div>
-      <CartFooter items={this.state.items} />
+      <CartFooter items={this.state.items} onSubmit={this.onSubmit.bind(this)} />
       <ReactModal 
            isOpen={this.state.showModal}
            contentLabel="移除商品"
@@ -76,6 +76,13 @@ class CartWithData extends Component {
           <button onClick={()=>this.handleCloseModal(false)}>取消</button>
         </ReactModal>
     </div>;
+  }
+
+  onSubmit(){
+    const selectedItemIds = this.state.items.filter( item => item.selected ).map( item => item.id )
+    if (selectedItemIds.length > 0){
+      this.props.submitOrder(selectedItemIds);
+    }
   }
 
   quantityChanged(itemId, newQuantity){
@@ -104,7 +111,7 @@ class CartWithData extends Component {
 }
 
 
-const mutation = graphql(UpdateCartMutation, {
+const updateCartMutation = graphql(UpdateCartMutation, {
   props: ({ ownProps, mutate }) => ({
     updateLineItems: (lineItems) => mutate({ variables: { items: lineItems } }),
   }),
@@ -115,7 +122,19 @@ const mutation = graphql(UpdateCartMutation, {
   },
 })
 
+const submitMutation = graphql(SubmitOrderMutation, {
+  props: ({ ownProps, mutate }) => ({
+    submitOrder: (itemIds) => mutate({ variables: { itemIds } }),
+  }),
+  options: {
+    refetchQueries: [
+      'CartCountQuery',
+    ],
+  },
+})
+
 export default compose(
   withApollo,
-  mutation
+  updateCartMutation,
+  submitMutation
 )(CartWithData)

@@ -3,6 +3,7 @@ defmodule Nectar.Schema do
   import_types Nectar.Schema.ProductTypes
   import_types Nectar.Schema.CartTypes
   import_types Nectar.Schema.LineItemTypes
+  import_types Nectar.Schema.OrderTypes
 
   alias Nectar.Resolvers
 
@@ -44,6 +45,13 @@ defmodule Nectar.Schema do
       arg :items, list_of(:line_item_input)
  
       resolve &Resolvers.Cart.update_cart/3
+    end
+
+    @desc "submit order"
+    field :submit_order, type: :order do
+      arg :item_ids, list_of(:integer)
+ 
+      resolve &Resolvers.Order.submit_order/3
     end
   end
 

@@ -21,7 +21,7 @@ defmodule Nectar.Query.LineItem do
 
   def in_cart(repo, variant_id, user_id) do
     query = from l in Nectar.LineItem,
-      where: l.user_id == ^user_id and l.variant_id == ^variant_id
+      where: l.user_id == ^user_id and l.variant_id == ^variant_id and l.order_id == -1
     
     query  |> repo.one
   end
