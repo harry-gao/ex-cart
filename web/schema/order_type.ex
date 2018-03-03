@@ -6,5 +6,9 @@ defmodule Nectar.Schema.OrderTypes do
 
   object :order do
     field :id, :integer
+    field :state, :string
+    field :items, list_of(:line_item) do
+      resolve &Nectar.Resolvers.Order.line_items/3
+    end
   end
 end

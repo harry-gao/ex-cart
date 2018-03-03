@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { graphql, withApollo, compose } from 'react-apollo';
+import { withRouter } from 'react-router-dom'
 import styles from './Cart.css';
 import CartItem from './CartItem';
 import EmptyCart from './EmptyCart';
@@ -81,7 +82,8 @@ class CartWithData extends Component {
   onSubmit(){
     const selectedItemIds = this.state.items.filter( item => item.selected ).map( item => item.id )
     if (selectedItemIds.length > 0){
-      this.props.submitOrder(selectedItemIds);
+      this.props.submitOrder(selectedItemIds)
+        .then( data => this.props.history.push(`/order/${data.data.submitOrder.id}`));  
     }
   }
 
@@ -129,6 +131,7 @@ const submitMutation = graphql(SubmitOrderMutation, {
   options: {
     refetchQueries: [
       'CartCountQuery',
+      'CartQuery'
     ],
   },
 })
@@ -136,5 +139,6 @@ const submitMutation = graphql(SubmitOrderMutation, {
 export default compose(
   withApollo,
   updateCartMutation,
-  submitMutation
+  submitMutation,
+  withRouter
 )(CartWithData)

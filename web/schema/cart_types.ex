@@ -7,16 +7,16 @@ defmodule Nectar.Schema.CartTypes do
 
   object :cart do
     field :count, :integer do
-      resolve &Resolvers.Cart.cart_item_count/3
+      resolve &Resolvers.Cart.line_item_count/3
     end
 
-    field :items, list_of(:cart_item) do
-      resolve &Resolvers.Cart.cart_items/3
+    field :items, list_of(:line_item) do
+      resolve &Resolvers.Cart.line_items/3
     end
   end
 
 
-  object :cart_item do
+  object :line_item do
     field :id, :integer do
       resolve fn p, _, _ ->
         {:ok, p[:id]}

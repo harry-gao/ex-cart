@@ -5,6 +5,7 @@ import Footer from '../Footer/Footer'
 import { Switch, Route } from 'react-router-dom'
 import Cart from '../Cart/Cart'
 import Me from '../Me/Me'
+import Order from '../Order/Order'
 
 const Main = () =>{
   return (
@@ -16,6 +17,7 @@ const Main = () =>{
         <Route exact path="/" render={(props) => ( <ProductListWithData {...props} /> )}  />
         <Route path="/cart" component={Cart} />
         <Route path="/me" component={Me} />
+        <Route path="/order/:id" component={Order} />
       </Switch>
       </div>
       <div className={styles.footer}>

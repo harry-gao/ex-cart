@@ -24,6 +24,15 @@ export const CartCountQuery = gql`
   }
 `;
 
+export const OrderQuery = gql`
+  query OrderQuery($orderId: Int!) {
+    order(id: $orderId){
+      id,
+      state
+    }
+  }
+`;
+
 export const ProductListQuery = gql`
    query ProductListQuery {
     products{

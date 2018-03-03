@@ -30,6 +30,11 @@ defmodule Nectar.Schema do
     field :cart, :cart do
       resolve fn _,_,_ -> {:ok, %{}} end
     end
+
+    field :order, :order do
+      arg :id, non_null(:integer)
+      resolve &Resolvers.Order.get_order/3
+    end
   end
 
   mutation do

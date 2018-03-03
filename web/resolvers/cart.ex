@@ -2,7 +2,7 @@ defmodule Nectar.Resolvers.Cart do
   import Ecto.Query, only: [from: 2]
   alias Nectar.{LineItem, Repo}
 
-  def cart_item_count(_, _, %{context: %{current_user: current_user}}) do
+  def line_item_count(_, _, %{context: %{current_user: current_user}}) do
     user_id = current_user.id
     query = from i in Nectar.LineItem,
       where: (i.user_id == ^user_id and i.order_id == -1),
@@ -10,7 +10,7 @@ defmodule Nectar.Resolvers.Cart do
     {:ok, Nectar.Repo.one!(query)}
   end
   
-  def cart_items(_, _, %{context: %{current_user: current_user}}) do
+  def line_items(_, _, %{context: %{current_user: current_user}}) do
     get_user_cart(current_user.id)
   end
 
@@ -62,7 +62,7 @@ defmodule Nectar.Resolvers.Cart do
     {:ok, items}
   end
 
-  defp get_image(product_id) do
+  def get_image(product_id) do
     query = from pi in Nectar.ProductImage,
             where: pi.product_id == ^product_id
     image = Nectar.Repo.one!(query)
