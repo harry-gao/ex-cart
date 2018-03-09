@@ -28,7 +28,15 @@ export const OrderQuery = gql`
   query OrderQuery($orderId: Int!) {
     order(id: $orderId){
       id,
-      state
+      state,
+      items{
+        id
+        name
+        price
+        quantity
+        variantId
+        image
+      }
     }
   }
 `;
@@ -45,6 +53,17 @@ export const ProductListQuery = gql`
         id
         costPrice
       }
+    }
+   }
+ `;
+
+ export const AddressesQuery = gql`
+   query AddressesQuery {
+    addresses{
+      id
+      name
+      phone
+      address_line_1
     }
    }
  `;
@@ -84,6 +103,22 @@ export const AddToCartMutation = gql`
         variantId
         image
       }
+    }
+  }
+`;
+
+export const CreateAddressMutation = gql`
+  mutation($address_line_1: String!, $name: String!, $phone: String!){
+    createAddress(address_line_1: $address_line_1, name: $name, phone: $phone){
+      id
+    }
+  }
+`;
+
+export const CreateOrderShippingAddressMutation = gql`
+  mutation($orderId: Int!, $addressId: Integer!){
+    createOrderShippingAddress(orderId: $orderId, addressId: $addressId){
+      id
     }
   }
 `;

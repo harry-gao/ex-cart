@@ -10,8 +10,8 @@ defmodule Nectar.User do
     field :is_admin, :boolean, default: false
 
     has_many :orders, Nectar.Order
-    has_many :user_addresses, Nectar.UserAddress
-    has_many :addresses, through: [:user_addresses, :address]
+    #has_many :user_addresses, Nectar.UserAddress
+    has_many :addresses, Nectar.Address
 
     extensions()
     timestamps()

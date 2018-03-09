@@ -1,0 +1,62 @@
+.article{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content{
+  flex: 1 1 auto;
+}
+.footer{
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 3rem;
+}
+.formGroupLine{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  border-bottom: solid 1px #ddd;
+  height: 3.5rem;
+}
+
+.label{
+  flex: 0 0 4rem;
+  margin: 0.5rem;
+}
+
+.input{
+  flex: 1 1 auto;
+  margin: 0.5rem;
+}
+
+.input input{
+  width: 100%;
+}
+
+.save{
+  background-color: #ff4136;
+  color: #fff;
+}
+
+.cancel{
+  background-color: #aaa;
+  color: #fff;
+}
+
+.btn{
+  flex: 1 1 auto;
+  text-align: center;
+  vertical-align: middle;
+  transition: transform .25s ease-out;
+  transition: transform .25s ease-out,-webkit-transform .25s ease-out;
+  padding: 0.75rem;
+  border: 1px solid #888;
+}
+
+.error{
+  height: 2rem;
+  color: #ff4136;
+  margin: 1rem auto;
+  text-align: center;
+}

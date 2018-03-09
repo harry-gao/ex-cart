@@ -9,6 +9,14 @@ defmodule Nectar.OrderShippingAddress do
     extensions()
   end
 
+  @required_fields ~w(order_id, address_id)
+  @optional_fields ~w()
+  def create_changeset(model, params \\ %{}) do
+    model
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
+  end
+
   @required_fields ~w()
   @optional_fields ~w(order_id)
   def changeset(model, params \\ %{}) do

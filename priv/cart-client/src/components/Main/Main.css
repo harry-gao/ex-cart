@@ -5,13 +5,6 @@
 }
 
 
-.header {
-  background-color: #222;
-  height: 70px;
-  color: white;
-  flex: 0 0 auto;
-}
-
 .main{
   flex: 1 1 auto;
   position: relative;/* need this to position inner content */

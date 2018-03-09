@@ -7,7 +7,7 @@ import CreatedOrder from './CreatedOrder'
 
 
 
-const OrderComponent = ({ data: {loading, error, order } }) => {
+const OrderComponent = ({ data: {loading, error, order }, history }) => {
   if (loading) {
     return <p>Loading ...</p>;
   }
@@ -16,7 +16,7 @@ const OrderComponent = ({ data: {loading, error, order } }) => {
   }
 
   if(order.state == "created")
-    return <CreatedOrder order={order} />
+    return <CreatedOrder order={order} history={history} />
 };
 
 const Order = compose(
