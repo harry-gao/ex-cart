@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { graphql, withApollo, compose } from 'react-apollo';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Route } from 'react-router-dom'
 import styles from './Address.css';
-import {CreateAddressMutation,} from '../queries'
+import {CreateAddressMutation, AddressesQuery} from '../queries'
 import classnames from 'classnames/bind'
 
 
@@ -11,14 +11,13 @@ const cx = classnames.bind(styles)
 
 const filter = /^[0-9\- +]+$/
 
-class NewAddress extends Component {
+class NewAddressComp extends Component {
   constructor(props){
     super(props)
-    this.handleSave = this.handleSave.bind(this);
     this.state={
       error: ""
     }
-
+    this.handleSave = this.handleSave.bind(this);
     this.valueChanged = this.valueChanged.bind(this)
   };
 
@@ -40,6 +39,7 @@ class NewAddress extends Component {
     else{
       this.setState({error: ""})
       this.props.createAddress(this.name.value, this.phone.value, this.address_line_1.value)
+        .then( ()=> this.props.history.goBack())
     }
   }
 
@@ -90,14 +90,28 @@ const createAddressMutation = graphql(CreateAddressMutation, {
     createAddress: (name, phone, address_line_1) => mutate({ variables: { address_line_1, name, phone } }),
   }),
   options: {
-    refetchQueries: [
-      'AddressesQuery',
-    ],
-  },
+    update: (proxy, { data: { createAddress } }) => {
+      // Read the data from our cache for this query.
+      const data = proxy.readQuery({ query: AddressesQuery });
+
+      // Add our todo from the mutation to the end.
+      data.addresses.push(createAddress);
+
+      // Write our data back to the cache.
+      proxy.writeQuery({ query: AddressesQuery, data });
+    },
+  }
+  // options: {
+  //   refetchQueries: [
+  //     'AddressesQuery',
+  //   ],
+  // },
 })
 
-export default compose(
+const NewAddress =  compose(
   withApollo,
   createAddressMutation,
   withRouter
-)(NewAddress)
+)(NewAddressComp)
+
+export default NewAddress

@@ -110,7 +110,10 @@ export const AddToCartMutation = gql`
 export const CreateAddressMutation = gql`
   mutation($address_line_1: String!, $name: String!, $phone: String!){
     createAddress(address_line_1: $address_line_1, name: $name, phone: $phone){
-      id
+      id,
+      name,
+      phone,
+      address_line_1
     }
   }
 `;

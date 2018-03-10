@@ -1,0 +1,107 @@
+.main{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.addresses{
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.actions{
+  flex: 0 0 3rem;
+  display: flex;
+  border-top: 1px solid #888;
+  align-items: stretch;
+  text-align: center;
+}
+
+.addNew{
+  margin-top: 1rem;
+  flex: 1 1 auto;
+}
+
+.actionable{
+  margin-top: 1rem;
+  flex: 1 1 auto;
+}
+
+.address{
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  flex-direction: row;
+  align-items: center;
+  color: #888;
+}
+
+.addressDetail{
+  flex: 1 1 auto;
+  font-size: 0.875rem;
+  padding: 0.5rem;
+}
+
+.addressDetail .phone{
+  margin-left: 2rem;
+}
+
+.addressLine{
+  margin-top: 0.5rem;
+}
+
+.checkbox{
+  flex: 0 0 2rem;
+  margin-left: 0.5rem;
+}
+
+.editBtn{
+  flex: 0 0 2rem;
+}
+
+.icon{
+  width: 1rem;
+}
+
+.round {
+  position: relative;
+  margin: 0.5rem auto;
+}
+
+.round label {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 18px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 18px;
+}
+
+.round label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 3px;
+  opacity: 0;
+  position: absolute;
+  top: 2px;
+  transform: rotate(-45deg);
+  width: 10px;
+}
+
+.round input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+  background-color: #66bb6a;
+  border-color: #66bb6a;
+}
+
+.round input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
