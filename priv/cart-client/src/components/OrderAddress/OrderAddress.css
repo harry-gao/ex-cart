@@ -65,17 +65,17 @@
   margin-top: 0.5rem;
 }
 
-.checkbox{
-  flex: 0 0 2rem;
-  margin-left: 0.5rem;
-}
-
 .editBtn{
   flex: 0 0 2rem;
 }
 
 .icon{
   width: 1rem;
+}
+
+.checkbox{
+  flex: 0 0 2rem;
+  margin-left: 0.5rem;
 }
 
 .round {

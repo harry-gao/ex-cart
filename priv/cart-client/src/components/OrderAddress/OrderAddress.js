@@ -7,17 +7,15 @@ import {Link} from 'react-router-dom'
 
 import editIcon from '../../assets/icons/edit.svg'
 
-import NewAddress from '../Address/NewAddress'
-
 const AddressOption = (props) => {
   const {address, selected, onSelect} = props
 
   return <div className={styles.address}>
-        <div className={styles.checkbox}>
+        <div className={styles.checkbox} onClick={(e)=>onSelect(address.id, e)}>
             <div className={styles.round}>
-              <input type="checkbox" id={'checkbox_' + address.id} 
-                defaultChecked={selected}
-                onChange={ e => onSelect(e, address.id)} checked={selected}/>
+              <input type="checkbox" 
+                id={'checkbox_' + address.id}
+                checked={selected}/>
               <label htmlFor={'checkbox_' + address.id}></label>
             </div>
           </div>
@@ -42,11 +40,13 @@ class OrderAddressWithData extends Component {
     this.onConfirm = this.onConfirm.bind(this)
   }
 
-  onSelect(e, id){
-    if(e.currentTarget.checked)
-      this.setState({selected: id})
-    else
+  onSelect(id, e){
+    e.preventDefault();
+    if(this.state.selected === id){
       this.setState({selected: null})
+    } else{
+      this.setState({selected: id})
+    }  
   }
 
   onConfirm(){
@@ -57,7 +57,7 @@ class OrderAddressWithData extends Component {
 
   render(){
     const {addresses} = this.props
-    let nodes = addresses.map( a => (<AddressOption key={a.id} address={a} selected={a.id == this.state.selected} onSelect={this.onSelect} />))
+    let nodes = addresses.map( a => (<AddressOption key={a.id} address={a} selected={a.id === this.state.selected} onSelect={this.onSelect} />))
     const actionName= this.state.selected == null ? "请选择" : "确定"
     const actionClass = this.state.selected == null ? styles.disabled : styles.enabled
     return (
@@ -75,7 +75,7 @@ class OrderAddressWithData extends Component {
   }
 }
 
-const OrderAddressComp = ({ data: {loading, error, addresses }}, match) => {
+const OrderAddressComp = ({ data: {loading, error, addresses }, history}) => {
   if (loading) {
     return <p>Loading ...</p>;
   }
@@ -84,11 +84,13 @@ const OrderAddressComp = ({ data: {loading, error, addresses }}, match) => {
   }
 
   if(addresses.length === 0)
-    this.props.history.go("/addresses/new")
+    history.push("/addresses/new")
 
   return <OrderAddressWithData addresses={addresses}/>
 };
 
-const OrderAddress = graphql(AddressesQuery)(OrderAddressComp);
+const OrderAddress = compose(
+  graphql(AddressesQuery),
+  withRouter)(OrderAddressComp);
 
 export default OrderAddress;
