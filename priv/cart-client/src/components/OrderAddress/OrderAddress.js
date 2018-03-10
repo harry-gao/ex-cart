@@ -17,7 +17,7 @@ const AddressOption = (props) => {
             <div className={styles.round}>
               <input type="checkbox" id={'checkbox_' + address.id} 
                 defaultChecked={selected}
-                onChange={ e => onSelect(e, address.id)} />
+                onChange={ e => onSelect(e, address.id)} checked={selected}/>
               <label htmlFor={'checkbox_' + address.id}></label>
             </div>
           </div>
@@ -26,7 +26,7 @@ const AddressOption = (props) => {
             <div className={styles.addressLine}>地址: {props.address.address_line_1} </div>
           </div>
           <div className={styles.editBtn}>
-            <Link to='/me'> <img src={editIcon} className={styles.icon} alt="edit"/> </Link>
+            <Link to='/address/:id/edit'> <img src={editIcon} className={styles.icon} alt="edit"/> </Link>
           </div>
         </div>
 }
@@ -39,6 +39,7 @@ class OrderAddressWithData extends Component {
     }
 
     this.onSelect = this.onSelect.bind(this)
+    this.onConfirm = this.onConfirm.bind(this)
   }
 
   onSelect(e, id){
@@ -48,10 +49,17 @@ class OrderAddressWithData extends Component {
       this.setState({selected: null})
   }
 
+  onConfirm(){
+    if(this.state.selected == null)
+      return
+    
+  }
+
   render(){
     const {addresses} = this.props
     let nodes = addresses.map( a => (<AddressOption key={a.id} address={a} selected={a.id == this.state.selected} onSelect={this.onSelect} />))
-    const actionName="确定"
+    const actionName= this.state.selected == null ? "请选择" : "确定"
+    const actionClass = this.state.selected == null ? styles.disabled : styles.enabled
     return (
       <div className={styles.main}>
         <div className={styles.addresses}>
@@ -59,7 +67,7 @@ class OrderAddressWithData extends Component {
         </div>
         <div className={styles.actions}>
           <div className={styles.addNew}>  <Link to='/addresses/new'> 添加新地址 </Link> </div>
-          <div className={styles.actionable}>
+          <div className={actionClass} onClick={this.onConfirm}>
             {actionName}
           </div> 
         </div>

@@ -18,13 +18,29 @@
 }
 
 .addNew{
-  margin-top: 1rem;
+  padding-top: 1rem;
   flex: 1 1 auto;
+  background-color: #00449e;
+  color: #fff;
 }
 
-.actionable{
-  margin-top: 1rem;
-  flex: 1 1 auto;
+.addNew a{
+  color: #fff;
+  text-decoration: none;
+}
+
+.enabled{
+  padding-top: 1rem;
+  flex: 0 0 50%;
+  background-color: #ff4136;
+  color: #fff;
+}
+
+.disabled{
+  padding-top: 1rem;
+  flex: 0 0 50%;
+  background-color: #888;
+  color: #fff;
 }
 
 .address{
