@@ -44,7 +44,7 @@ class NewAddress extends Component {
   }
 
   validate(){
-   return this.name != null && this.name.value.length > 2 &&
+   return this.name != null && this.name.value.length > 1 &&
     this.phone != null && filter.test(this.phone.value) &&
     this.address_line_1 != null && this.address_line_1.value.length > 5
   }
