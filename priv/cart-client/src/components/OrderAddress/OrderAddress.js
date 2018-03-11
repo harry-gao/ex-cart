@@ -24,7 +24,7 @@ const AddressOption = (props) => {
             <div className={styles.addressLine}>地址: {props.address.address_line_1} </div>
           </div>
           <div className={styles.editBtn}>
-            <Link to='/address/:id/edit'> <img src={editIcon} className={styles.icon} alt="edit"/> </Link>
+            <Link to={`/address/${address.id}/edit`}> <img src={editIcon} className={styles.icon} alt="edit"/> </Link>
           </div>
         </div>
 }

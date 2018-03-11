@@ -35,6 +35,16 @@ defmodule Nectar.Address do
     |> foreign_key_constraint(:user_id)
   end
 
+  @required_fields ~w(address_line_1 phone name)a
+  @optional_fields ~w()a
+  def update_changeset(model, params \\ %{}) do
+    model
+    |> cast(params, @required_fields ++ @optional_fields)
+    |> validate_required(@required_fields)
+    |> validate_length(:address_line_1, min: 5)
+    |> foreign_key_constraint(:user_id)
+  end
+
   # def registered_user_changeset(model, params \\ :empty) do
   #   changeset(model, params)
   #   |> cast_assoc(:user_address, required: true)

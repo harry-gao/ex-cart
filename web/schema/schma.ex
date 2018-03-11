@@ -57,6 +57,11 @@ defmodule Nectar.Schema do
     field :addresses, list_of(:address) do
       resolve &Resolvers.Address.get_addresses/3
     end
+
+    field :address, :address do
+      arg :id, non_null(:integer)
+      resolve &Resolvers.Address.get_address/3
+    end
   end
 
   mutation do
@@ -88,6 +93,13 @@ defmodule Nectar.Schema do
       arg :phone, non_null(:string)
  
       resolve handle_errors(&Resolvers.Address.create/3)
+    end
+
+    @desc "upsert address"
+    field :upsert_address, type: :address do
+      arg :address, non_null(:address_input)
+ 
+      resolve handle_errors(&Resolvers.Address.upsert/3)
     end
 
     @desc "create order_shipping_address"
