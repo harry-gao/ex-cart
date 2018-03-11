@@ -23,7 +23,7 @@ const Order = compose(
   withRouter,
   graphql(OrderQuery, {
     options: (props) => ({ 
-      variables: { orderId: parseInt(props.match.params.id) } }),
+      variables: { orderId: parseInt(props.match.params.id, 10) } }),
   })
 ) (OrderComponent);
 

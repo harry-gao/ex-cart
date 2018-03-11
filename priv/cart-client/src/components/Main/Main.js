@@ -8,7 +8,8 @@ import Cart from '../Cart/Cart'
 import Me from '../Me/Me'
 import Order from '../Order/Order'
 import OrderAddress from '../OrderAddress/OrderAddress'
-import NewAddress from '../Address/NewAddress'
+import Address from '../Address/Address'
+import EditAddress from '../Address/EditAddress'
 
 const Main = () =>{
   return (
@@ -20,7 +21,8 @@ const Main = () =>{
         <Route path="/cart" component={Cart} />
         <Route path="/me" component={Me} />
         <Route path="/order/:id/address" component={OrderAddress} />
-        <Route path="/addresses/new" component={NewAddress} />
+        <Route path="/address/:id/edit" component={EditAddress} />
+        <Route path="/addresses/new" component={Address} />
         <Route path="/order/:id" component={Order} />
       </Switch>
       </div>

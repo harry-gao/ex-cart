@@ -37,6 +37,12 @@ export const OrderQuery = gql`
         variantId
         image
       }
+      address{
+        id
+        name
+        address_line_1
+        phone
+      }
     }
   }
 `;
@@ -67,6 +73,17 @@ export const ProductListQuery = gql`
     }
    }
  `;
+
+ export const AddressQuery = gql`
+ query AddressQuery($addressId: Int!) {
+  address(id: $addressId){
+    id
+    name
+    phone
+    address_line_1
+  }
+ }
+`;
 
 //MUTATIONS
 export const UpdateCartMutation = gql`
@@ -110,18 +127,35 @@ export const AddToCartMutation = gql`
 export const CreateAddressMutation = gql`
   mutation($address_line_1: String!, $name: String!, $phone: String!){
     createAddress(address_line_1: $address_line_1, name: $name, phone: $phone){
-      id,
-      name,
-      phone,
+      id
+      name
+      phone
+      address_line_1
+    }
+  }
+`;
+
+export const UpsertAddressMutation = gql`
+  mutation upsertAddress($addressInput: AddressInput){
+    upsertAddress(address: $addressInput){
+      id
+      name
+      phone
       address_line_1
     }
   }
 `;
 
 export const CreateOrderShippingAddressMutation = gql`
-  mutation($orderId: Int!, $addressId: Integer!){
+  mutation($orderId: Int!, $addressId: Int!){
     createOrderShippingAddress(orderId: $orderId, addressId: $addressId){
-      id
+      orderId
+      address{
+        id
+        name
+        phone
+        address_line_1
+      }
     }
   }
 `;

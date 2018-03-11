@@ -4,24 +4,15 @@ import { Checkbox } from 'react-bootstrap';
 
 const CartItem = ( {item, quantityChanged, checkChanged} ) =>{
   return <div className={styles.item}>
-    <div className={styles.checkbox}>
+    <div className={styles.checkbox} onClick={(e)=>checkChanged(item.id, e)}>
       <div className={styles.round}>
-        <input type="checkbox" id={'checkbox_' + item.id} 
-          defaultChecked={item.selected} 
-          onChange={ () => checkChanged(item.id)} />
+        <input type="checkbox" 
+          id={'checkbox_' + item.id}
+          checked={item.selected}/>
         <label htmlFor={'checkbox_' + item.id}></label>
       </div>
     </div>
-    <div className={styles.adjustor}>
-      <div className={styles.adjustorbtn}
-        onClick={() => {quantityChanged(item.id, item.quantity + 1)}}>+</div>
-      <div className={styles.adjustortext}>
-        <span>{item.quantity}</span>
-      </div>
-      <div className={styles.adjustorbtn}
-        onClick={() => {quantityChanged(item.id, item.quantity - 1)}}>-</div>
-    </div>
-    
+
     <div className={styles.content}>
       <div className='pa2 courier f6'>{item.name}</div>
       <div>
@@ -34,6 +25,15 @@ const CartItem = ( {item, quantityChanged, checkChanged} ) =>{
     </div>
     <div className={styles.image}>
       <img src={item.image} className={styles.itemImage} alt=""></img>
+    </div>
+    <div className={styles.adjustor}>
+      <div className={styles.adjustorbtn}
+        onClick={() => {quantityChanged(item.id, item.quantity + 1)}}>+</div>
+      <div className={styles.adjustortext}>
+        <span>{item.quantity}</span>
+      </div>
+      <div className={styles.adjustorbtn}
+        onClick={() => {quantityChanged(item.id, item.quantity - 1)}}>-</div>
     </div>
   </div>
 }

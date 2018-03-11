@@ -22,6 +22,8 @@ class CartWithData extends Component {
     };
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleChangeChk = this.handleChangeChk.bind(this);
+    this.quantityChanged = this.quantityChanged.bind(this);
   }
 
   handleOpenModal (itemId) {
@@ -38,7 +40,10 @@ class CartWithData extends Component {
     }
   }
 
-  handleChangeChk(itemId){
+  handleChangeChk(itemId, e){
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("changed item ", itemId)
     let newItems = this.state.items.map( item => {
       return item.id === itemId ?  { ...item, selected: !item.selected } : item
     })
@@ -63,7 +68,7 @@ class CartWithData extends Component {
     
     return <div className={styles.cart}>
       <div className={styles.main}>
-        { this.state.items.map( item => < CartItem item={item} key={item.variantId} quantityChanged={this.quantityChanged.bind(this)} checkChanged={this.handleChangeChk.bind(this)}/> ) }
+        { this.state.items.map( item => < CartItem item={item} key={item.variantId} quantityChanged={this.quantityChanged} checkChanged={this.handleChangeChk}/> ) }
       </div>
       <CartFooter items={this.state.items} onSubmit={this.onSubmit.bind(this)} />
       <ReactModal 

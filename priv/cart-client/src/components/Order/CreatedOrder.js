@@ -5,6 +5,9 @@ import classnames from 'classnames/bind'
 import styles from './Order.css'
 import {OrderQuery} from '../queries'
 import OrderItem from './OrderItem'
+import {Link} from 'react-router-dom'
+
+import editIcon from '../../assets/icons/edit.svg'
 
 const cx = classnames.bind(styles)
 
@@ -13,6 +16,21 @@ const CreatedOrder = ({ order, history }) => {
   const orderItems = order.items.map( item => 
     <OrderItem item={item} key={item.id}/>
   )
+
+  let addressNode
+  const address = order.address
+  if(address === null)
+    addressNode = <div className={cx('groupContent', 'actionable')} onClick={()=>{history.push(`/order/${order.id}/address`)}}>请指定 > </div>
+  else
+    addressNode = (<div className={styles.orderAddress}>          
+      <div className={styles.addressDetail}>
+        <div> {address.name}  <span className={styles.phone}> {address.phone} </span> </div>
+        <div className={styles.addressLine}>地址: {address.address_line_1} </div>
+      </div>
+      <div className={styles.editBtn}>
+        <Link to={`/order/${order.id}/address`}> <img src={editIcon} className={styles.icon} alt="edit"/> </Link>
+      </div> 
+    </div>)
 
   return(
     <div>
@@ -28,7 +46,7 @@ const CreatedOrder = ({ order, history }) => {
         </div>
         <div className={styles.orderGroup}>
           <h1 className={styles.groupTitle}>送货地址</h1>
-          <div className={cx('groupContent', 'actionable')} onClick={()=>{history.push(`/order/${order.id}/address`)}}>请指定 > </div>
+          {addressNode}
         </div>
         <div className={styles.orderGroup}>
           <h1 className={styles.groupTitle}>留言</h1>
