@@ -13,7 +13,7 @@ defmodule Nectar.Resolvers.Order do
   end
 
   def get_order(_, %{id: id}, %{context: %{current_user: current_user}}) do
-    case Repo.get_by(Order, %{id: id, user_id: current_user.id}) do
+    case Repo.get_by(Order, %{id: id, user_id: current_user.id}) |> Repo.preload([:shipping_address]) do
       nil -> {:ok, "Not found"}
       order -> {:ok, order}
     end

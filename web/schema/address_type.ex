@@ -13,8 +13,7 @@ defmodule Nectar.Schema.AddressTypes do
   end
 
   object :order_shipping_address do
-    field :id, :integer
     field :order_id, :integer
-    field :address_id, :integer
+    field :address, :address
   end
 end

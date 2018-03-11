@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { graphql, compose } from 'react-apollo';
 import { withRouter } from 'react-router'
 import styles from './OrderAddress.css'
-import {AddressesQuery} from '../queries'
+import {AddressesQuery, OrderQuery, CreateOrderShippingAddressMutation} from '../queries'
 import {Link} from 'react-router-dom'
 
 import editIcon from '../../assets/icons/edit.svg'
@@ -52,7 +52,8 @@ class OrderAddressWithData extends Component {
   onConfirm(){
     if(this.state.selected == null)
       return
-    
+    this.props.createOrderAddress(parseInt(this.props.orderId, 10), this.state.selected)
+    .then(this.props.history.goBack())
   }
 
   render(){
@@ -75,7 +76,7 @@ class OrderAddressWithData extends Component {
   }
 }
 
-const OrderAddressComp = ({ data: {loading, error, addresses }, history}) => {
+const OrderAddressComp = ({ data: {loading, error, addresses }, history, match, createOrderAddress}) => {
   if (loading) {
     return <p>Loading ...</p>;
   }
@@ -86,10 +87,33 @@ const OrderAddressComp = ({ data: {loading, error, addresses }, history}) => {
   if(addresses.length === 0)
     history.push("/addresses/new")
 
-  return <OrderAddressWithData addresses={addresses}/>
+  return <OrderAddressWithData 
+    addresses={addresses} 
+    createOrderAddress={createOrderAddress} 
+    orderId={match.params.id} 
+    history={history}/>
 };
 
+const confirmAddressMutation = graphql(CreateOrderShippingAddressMutation, {
+  props: ({ ownProps, mutate }) => ({
+    createOrderAddress: (orderId, addressId) => mutate({ variables: { orderId, addressId } }),
+  }),
+  options: {
+    update: (proxy, { data: { createOrderShippingAddress } }) => {
+      // Read the data from our cache for this query.
+      const data = proxy.readQuery({ query: OrderQuery, variables: {orderId: createOrderShippingAddress.orderId } });
+
+      // Add our todo from the mutation to the end.
+      data.order = {...data.order, address: createOrderShippingAddress.address}
+
+      // Write our data back to the cache.
+      proxy.writeQuery({ query: OrderQuery, data, variables: {orderId: createOrderShippingAddress.orderId } });
+    },
+  },
+})
+
 const OrderAddress = compose(
+  confirmAddressMutation,
   graphql(AddressesQuery),
   withRouter)(OrderAddressComp);
 

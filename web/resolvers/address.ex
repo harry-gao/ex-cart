@@ -13,9 +13,15 @@ defmodule Nectar.Resolvers.Address do
       |> Repo.insert
   end
 
-  def create_order_address(_, args, _) do
+  def create_order_address(_, %{order_id: order_id, address_id: address_id} = args, _) do
+    (from oa in OrderShippingAddress, where: oa.order_id == ^order_id)
+      |> Repo.delete_all
+    
     OrderShippingAddress.create_changeset(%OrderShippingAddress{}, args)
       |> Repo.insert
+    #TODO error handling
+    
+    {:ok, %{order_id: order_id, address: Repo.get(Address, address_id)}}
   end
 
 end
