@@ -5,6 +5,7 @@ body {
   height: 100%;
   color: #555;
   -webkit-tap-highlight-color: transparent;
+  background-color: #efefef;
 }
 
 html {

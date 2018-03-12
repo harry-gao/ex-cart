@@ -8,6 +8,7 @@
   flex: 1 1 auto;
   position: relative;/* need this to position inner content */
   overflow-y: auto;
+  background-color: #efefef;
 }
 
 .footer{
@@ -41,7 +42,8 @@
   overflow:auto;
   display: flex;
   align-items: stretch;
-  border-bottom: 1px solid #888;
+  background-color: #fff;
+  margin-bottom: 1rem;
 }
 
 .checkbox{
@@ -123,9 +125,13 @@
   flex: 1 1 auto;
 }
 
-.item:nth-child(2n){
+/* .item:nth-child(2n){
   background-color: #efefef;
 }
+
+.item:nth-child(2n+1){
+  background-color: #f0f0f0;
+} */
 
 .image{
   flex-shrink: 0;

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Cart.css'
 
 const CartFooter = ({items, onSubmit}) =>{
-  const total = items.reduce( (sum, item) => item.selected ? sum + item.quantity * item.price : sum, 0);
+  const total = items.reduce( (sum, item) => item.selected ? sum + item.quantity * item.price : sum, 0)
   const submitClass = items.some( item => item.selected) ? styles.submit : styles.submit + ' ' + styles.disabled
   return(
     <div className={styles.footer}>

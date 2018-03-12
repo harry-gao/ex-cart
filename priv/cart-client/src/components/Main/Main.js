@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styles from './Main.css'
 import ProductListWithData from '../ProductList/ProductList'
 import Footer from '../Footer/Footer'
@@ -11,24 +11,44 @@ import OrderAddress from '../OrderAddress/OrderAddress'
 import Address from '../Address/Address'
 import EditAddress from '../Address/EditAddress'
 
+const MainLayout =  ({component: Component, ...rest}) =>{
+  return (
+    <Route {...rest} render={matchProps => (
+      <div className={styles.site}>
+        <Header />
+        <div className={styles.main}>
+          <Component {...matchProps} />
+        </div>
+        <div className={styles.footer}>
+          <Footer/>
+        </div>
+      </div>
+    )}/>
+  )
+}
+
+const EmptyLayout =  ({component: Component, ...rest}) =>{
+  return (
+    <Route {...rest} render={matchProps => (
+      <div className={styles.site}>
+        <Component {...matchProps} />
+      </div>
+    )}/>
+  )
+}
+
 const Main = () =>{
   return (
-    <div className={styles.site}>
-      <Header />
-      <div className={styles.main}>
-      <Switch> 
-        <Route exact path="/" component={ProductListWithData} />
-        <Route path="/cart" component={Cart} />
-        <Route path="/me" component={Me} />
-        <Route path="/order/:id/address" component={OrderAddress} />
-        <Route path="/address/:id/edit" component={EditAddress} />
-        <Route path="/addresses/new" component={Address} />
-        <Route path="/order/:id" component={Order} />
+    <div>
+      <Switch>
+        <MainLayout exact path="/" component={ProductListWithData} />
+        <MainLayout path="/cart" component={Cart} />
+        <MainLayout path="/me" component={Me} />
+        <EmptyLayout path="/order/:id/address" component={OrderAddress} />
+        <EmptyLayout path="/address/:id/edit" component={EditAddress} />
+        <EmptyLayout path="/addresses/new" component={Address} />
+        <MainLayout path="/order/:id" component={Order} />
       </Switch>
-      </div>
-      <div className={styles.footer}>
-        <Footer/>
-      </div>
     </div>
   );
 }
