@@ -97,9 +97,10 @@ const upsertAddressMutation = graphql(UpsertAddressMutation, {
     update: (proxy, { data: { upsertAddress } }) => {
       // Read the data from our cache for this query.
       const data = proxy.readQuery({ query: AddressesQuery });
-
-      // Add our todo from the mutation to the end.
-      data.addresses = data.addresses.map(a => a.id == upsertAddress.id ? upsertAddress : a);
+      if(data.addresses.find( a => a.id == upsertAddress.id))
+        data.addresses = data.addresses.map(a => a.id == upsertAddress.id ? upsertAddress : a);
+      else
+        data.addresses.push(upsertAddress)
 
       // Write our data back to the cache.
       proxy.writeQuery({ query: AddressesQuery, data });
