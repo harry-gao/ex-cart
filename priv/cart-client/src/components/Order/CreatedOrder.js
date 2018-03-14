@@ -21,8 +21,9 @@ class CreatedOrder extends Component {
   onSumbit(){
     if(this.props.order.address === null)
       return
-    alert('submitting')
+    this.props.updateOrder({id: this.props.order.id, state: "confirmed", comment: ''})
   }
+  
   render(){
     const {order, history} = this.props
 
@@ -73,7 +74,7 @@ class CreatedOrder extends Component {
             <div className={styles.orderSummary}>合计:
               <span className={styles.total}> ￥{total} </span>
             </div>
-            <div className={cx('submit', submitStatus)} onClick={this.onSumbit}> 提交订单 </div>
+            <div className={cx('submit', submitStatus)} onClick={this.onSumbit}> 去结算 </div>
           </div>
         </div>
     )

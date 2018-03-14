@@ -7,8 +7,8 @@ const CartFooter = ({items, onSubmit}) =>{
   return(
     <div className={styles.footer}>
       <div className={styles.total}>总价: <span className='red'> ￥{total} </span></div>
-      <div className={submitClass}>
-        <div className={styles.active} onClick={onSubmit}>去结算</div>
+      <div className={submitClass} onClick={onSubmit}>
+        <div className={styles.active}>提交订单</div>
       </div>
     </div>
   )

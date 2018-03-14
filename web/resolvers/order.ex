@@ -12,9 +12,16 @@ defmodule Nectar.Resolvers.Order do
     {:ok, order}
   end
 
+  def update_order(_, %{order: %{comment: comment, id: id, state: "confirmed"}}, %{context: %{current_user: current_user}}) do 
+    case Repo.get_by(Order, %{id: id, user_id: current_user.id}) |> Repo.preload([:shipping_address]) do
+      nil -> {:error, "Order not found"}
+      order -> Order.confirmation_changeset(order, %{comment: comment}) |> Repo.update
+    end
+  end
+
   def get_order(_, %{id: id}, %{context: %{current_user: current_user}}) do
     case Repo.get_by(Order, %{id: id, user_id: current_user.id}) |> Repo.preload([:shipping_address]) do
-      nil -> {:ok, "Not found"}
+      nil -> {:error, "Not found"}
       order -> {:ok, order}
     end
   end

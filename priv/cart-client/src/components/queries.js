@@ -109,6 +109,29 @@ export const SubmitOrderMutation = gql`
   }
 `;
 
+export const UpdateOrderMutation = gql`
+  mutation UpdateOrder($order: OrderInput!){
+    updateOrder(order: $order){
+      id,
+      state,
+      items{
+        id
+        name
+        price
+        quantity
+        variantId
+        image
+      }
+      address{
+        id
+        name
+        address_line_1
+        phone
+      }
+    }
+  }
+`;
+
 export const AddToCartMutation = gql`
   mutation($variantId: Int!){
     addToCart(variantId: $variantId){

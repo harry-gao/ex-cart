@@ -86,6 +86,13 @@ defmodule Nectar.Schema do
       resolve &Resolvers.Order.submit_order/3
     end
 
+    @desc "update order"
+    field :update_order, type: :order do
+      arg :order, non_null(:order_input)
+ 
+      resolve &Resolvers.Order.update_order/3
+    end
+
     @desc "create address"
     field :create_address, type: :address do
       arg :address_line_1, non_null(:string)
