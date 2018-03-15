@@ -16,7 +16,7 @@
   height: 60px;
   display: flex;
   align-content: space-around;
-  background-color: #efefef;
+  background-color: #fff;
   align-items: center;
 }
 
@@ -25,17 +25,17 @@
   padding-left: 12px;
 }
 .submit{
-  flex: 0 0 90px;
+  flex: 0 0 8rem;
   align-self: stretch;
   background-color: #ff4136;
   color: #fff;
+  text-align: center;
 }
 .disabled{
   background-color: #666;
 }
 .submit div{
-  padding-top: 20px;
-  padding-left: 22px;
+  padding-top: 1.25rem;
 }
 
 .item{
@@ -43,7 +43,7 @@
   display: flex;
   align-items: stretch;
   background-color: #fff;
-  margin-bottom: 1rem;
+  margin-top: 0.5rem;
 }
 
 .checkbox{
@@ -98,8 +98,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-left: 1px solid #888;
-  border-right: 1px solid #888;
+  border: 1px solid #888;
   width: 32px;
   flex-shrink: 0;
 }

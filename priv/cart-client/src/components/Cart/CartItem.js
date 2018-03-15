@@ -12,7 +12,9 @@ const CartItem = ( {item, quantityChanged, checkChanged} ) =>{
         <label htmlFor={'checkbox_' + item.id}></label>
       </div>
     </div>
-
+    <div className={styles.image}>
+      <img src={item.image} className={styles.itemImage} alt=""></img>
+    </div>
     <div className={styles.content}>
       <div className='pa2 courier f6'>{item.name}</div>
       <div>
@@ -22,9 +24,6 @@ const CartItem = ( {item, quantityChanged, checkChanged} ) =>{
           </div>
         </div>
       </div>
-    </div>
-    <div className={styles.image}>
-      <img src={item.image} className={styles.itemImage} alt=""></img>
     </div>
     <div className={styles.adjustor}>
       <div className={styles.adjustorbtn}

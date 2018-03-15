@@ -10,15 +10,17 @@ import userIcon from '../../assets/icons/user.png'
 
 
 const FooterComponent = ({ data: {loading, error, cart }}) => {
+  let cartCount = null
+  if(cart && cart.count > 0)
+    cartCount = <div className={styles.badge}>{cart.count} </div>
   return (
     <div className={styles.footer}>
       <div className={styles.hoe}>
         <Link to='/'><img src={homeIcon} className={styles.icon} alt="home"/> </Link>
       </div>
       <div className={styles.cart}>
-        <Link to='/cart'> <img src={cartIcon} className={styles.icon} alt="cart"/> 
-          {cart  && cart.count >0 && cart.count}
-        </Link>
+        <Link to='/cart'> <img src={cartIcon} className={styles.icon} alt="cart"/> </Link>
+        {cartCount}
       </div>
       <div className={styles.me}>
         <Link to='/me'> <img src={userIcon} className={styles.icon} alt="me"/> </Link>

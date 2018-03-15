@@ -1,22 +1,55 @@
-import React from 'react';
-
+import React, {Component} from 'react';
 import { graphql } from 'react-apollo';
 import ProductBriefContainer from '../ProductBrief/ProductBrief'
 import styles from './ProductList.css'
 import {ProductListQuery} from '../queries'
+import Loadable from 'react-loading-overlay'
 
-const ProductList = ({ data: {loading, error, products }}) => {
-  if (loading) {
-    return <p>Loading ...</p>;
+class ProductList extends Component{
+  constructor(props){
+    super(props)
+    this.state = { loading: false }
+    
+    this.loadingStart = this.loadingStart.bind(this)
+    this.loadingEnd = this.loadingEnd.bind(this)
   }
-  if (error) {
-    return <p>{error.message}</p>;
-  }
-  return <div className={styles.list}>
-    { products.map( p => <ProductBriefContainer product={p} key={p.id}/> ) }
-  </div>;
-};
 
+  loadingStart(){
+    this.setState({loading: true})
+  }
+
+  loadingEnd(){
+    this.setState({loading: false})
+  }
+
+  render(){
+    const { data: {loading, error, products }} = this.props
+    if (loading) {
+      return <p>Loading ...</p>;
+    }
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+    return (
+      <Loadable
+        active={this.state.loading}
+        spinner={true}
+        animate={true}
+        background={'#96ccff'}
+        className={styles.loadingOverlay}
+        text='加载中...'
+        >
+        <div className={styles.list}>
+          { products.map( p => <ProductBriefContainer 
+                                product={p} 
+                                key={p.id} 
+                                loadingStart={this.loadingStart}
+                                loadingEnd={this.loadingEnd}/> ) }
+        </div>
+      </Loadable>
+    )
+  }
+}
 const ProductListWithData = graphql(ProductListQuery)(ProductList);
 
 
