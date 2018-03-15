@@ -1,0 +1,31 @@
+.me{
+  display: flex;
+  flex-direction: column;
+}
+
+.group{
+  margin-top: 1rem;
+}
+
+.item{
+  background-color: #fff;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.item .title{
+  flex: 1 1 auto;
+}
+
+.item .next{
+  flex: 0 0 2rem;
+}
+
+.bb{
+  border-bottom: 1px solid #eee;
+}
+
+.icon{
+  width: 1.8rem;
+}

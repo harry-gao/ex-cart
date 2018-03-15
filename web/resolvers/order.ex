@@ -26,6 +26,14 @@ defmodule Nectar.Resolvers.Order do
     end
   end
 
+  def get_orders(_, %{state: state}, %{context: %{current_user: current_user}}) do
+    query = from o in Order, where: (o.state == ^state and o.user_id == ^current_user.id)
+    case Repo.all(query) |> Repo.preload([:shipping_address]) do
+      nil -> {:error, "Not found"}
+      orders -> {:ok, orders}
+    end
+  end
+
   def line_items(parent, _, %{context: %{current_user: current_user}}) do
     query = 
       from l in Nectar.LineItem,

@@ -47,6 +47,23 @@ export const OrderQuery = gql`
   }
 `;
 
+export const OrdersQuery = gql`
+  query OrdersQuery($state: String!) {
+    orders(state: $state){
+      id,
+      state,
+      items{
+        id
+        name
+        price
+        quantity
+        variantId
+        image
+      }
+    }
+  }
+`;
+
 export const ProductListQuery = gql`
    query ProductListQuery {
     products{

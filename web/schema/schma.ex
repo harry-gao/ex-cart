@@ -54,6 +54,11 @@ defmodule Nectar.Schema do
       resolve &Resolvers.Order.get_order/3
     end
 
+    field :orders, list_of(:order) do
+      arg :state, non_null(:string)
+      resolve &Resolvers.Order.get_orders/3
+    end
+
     field :addresses, list_of(:address) do
       resolve &Resolvers.Address.get_addresses/3
     end
