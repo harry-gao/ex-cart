@@ -10,6 +10,7 @@ import Order from '../Order/Order'
 import OrderAddress from '../OrderAddress/OrderAddress'
 import Address from '../Address/Address'
 import EditAddress from '../Address/EditAddress'
+import ProductDetail from '../ProductDetail/ProductDetail'
 
 const MainLayout =  ({component: Component, ...rest}) =>{
   return (
@@ -44,6 +45,7 @@ const Main = () =>{
         <MainLayout exact path="/" component={ProductListWithData} />
         <MainLayout path="/cart" component={Cart} />
         <MainLayout path="/me" component={Me} />
+        <MainLayout path="/products/:id" component={ProductDetail} />
         <EmptyLayout path="/order/:id/address" component={OrderAddress} />
         <EmptyLayout path="/address/:id/edit" component={EditAddress} />
         <EmptyLayout path="/addresses/new" component={Address} />

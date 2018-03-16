@@ -80,6 +80,23 @@ export const ProductListQuery = gql`
    }
  `;
 
+ export const ProductQuery = gql`
+  query ProductQuery($productId: Int!) {
+    product(id: $productId){
+      id
+      name
+      description
+      images{
+        mobile
+      }
+      masterVariant{
+        id
+        costPrice
+      }
+    }
+  }
+ `;
+
  export const AddressesQuery = gql`
    query AddressesQuery {
     addresses{

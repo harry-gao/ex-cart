@@ -26,11 +26,6 @@ const updateOrderMutation = graphql(UpdateOrderMutation, {
   props: ({ ownProps, mutate }) => ({
     updateOrder: (order) => mutate({ variables: { order } }),
   }),
-  // options: {
-  //   refetchQueries: [
-  //     'CartCountQuery',
-  //   ],
-  // },
 })
 
 const orderQuery = graphql(OrderQuery, {
