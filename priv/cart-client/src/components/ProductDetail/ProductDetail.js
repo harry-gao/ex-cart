@@ -5,7 +5,7 @@ import Carousel from 'nuka-carousel';
 import Loadable from 'react-loading-overlay'
 
 import styles from './ProductDetail.css'
-//import "../../../node_modules/react-responsive-carousel/lib/styles/carousel.min.css"
+import Loading from '../Loading/Loading';
 
 class ProductDetail extends Component {
   constructor(props){
@@ -28,7 +28,7 @@ class ProductDetail extends Component {
     const { data: {loading, error, product }, history, onAdd } = this.props
     
     if (loading) {
-      return <p>Loading ...</p>;
+      return <Loading />;
     }
     if (error) {
       return <p>{error.message}</p>;

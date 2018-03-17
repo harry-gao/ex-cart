@@ -53,7 +53,7 @@ class CreatedOrder extends Component {
     return(
         <div className={styles.orderArticle}>
           <div className={styles.orderContent}>
-            <h1 className={styles.groupTitle}>订单详情</h1>
+            <h1 className={styles.groupTitle}>订单内容</h1>
             <div className="bt b--black-10">
               {orderItems}
             </div>

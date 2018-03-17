@@ -4,6 +4,7 @@ import ProductBriefContainer from '../ProductBrief/ProductBrief'
 import styles from './ProductList.css'
 import {ProductListQuery} from '../queries'
 import Loadable from 'react-loading-overlay'
+import Loading from '../Loading/Loading';
 
 class ProductList extends Component{
   constructor(props){
@@ -25,7 +26,7 @@ class ProductList extends Component{
   render(){
     const { data: {loading, error, products }} = this.props
     if (loading) {
-      return <p>Loading ...</p>;
+      return <Loading />;
     }
     if (error) {
       return <p>{error.message}</p>;

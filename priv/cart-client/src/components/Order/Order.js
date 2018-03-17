@@ -5,12 +5,13 @@ import styles from './Order.css'
 import {OrderQuery, UpdateOrderMutation} from '../queries'
 import CreatedOrder from './CreatedOrder'
 import PayOrder from './PayOrder'
+import Loading from '../Loading/Loading';
 
 
 
 const OrderComponent = ({ data: {loading, error, order }, history, updateOrder }) => {
   if (loading) {
-    return <p>Loading ...</p>;
+    return <Loading />;
   }
   if (error) {
     return <p>{error.message}</p>;

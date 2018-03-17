@@ -27,6 +27,8 @@ a:visited{
 
 input {
   border: 0;
+  border-bottom: 1px solid #bbb;
+  background-color: #efefef;
 }
 
 input:focus {

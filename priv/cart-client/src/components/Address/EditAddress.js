@@ -3,6 +3,7 @@ import { graphql, withApollo, compose } from 'react-apollo';
 import { withRouter } from 'react-router-dom'
 import {UpsertAddressMutation, AddressesQuery, AddressQuery} from '../queries'
 import Address from './Address'
+import Loading from '../Loading/Loading';
 
 
 // const upsertAddressMutation = graphql(UpsertAddressMutation, {
@@ -25,7 +26,7 @@ import Address from './Address'
 
 const EditAddress = ({ data: {loading, error, address }, history, upsertAddress}) => {
   if (loading) {
-    return <p>Loading ...</p>;
+    return <Loading />;
   }
   if (error) {
     return <p>{error.message}</p>;

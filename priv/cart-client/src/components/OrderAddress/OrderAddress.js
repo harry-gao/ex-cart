@@ -4,6 +4,7 @@ import { withRouter } from 'react-router'
 import styles from './OrderAddress.css'
 import {AddressesQuery, OrderQuery, CreateOrderShippingAddressMutation} from '../queries'
 import {Link} from 'react-router-dom'
+import Loading from '../Loading/Loading';
 
 import editIcon from '../../assets/icons/edit.svg'
 
@@ -78,7 +79,7 @@ class OrderAddressWithData extends Component {
 
 const OrderAddressComp = ({ data: {loading, error, addresses }, history, match, createOrderAddress}) => {
   if (loading) {
-    return <p>Loading ...</p>;
+    return <Loading />;
   }
   if (error) {
     return <p>{error.message}</p>;

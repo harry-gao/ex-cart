@@ -3,6 +3,7 @@ import { graphql, compose } from 'react-apollo';
 import { withRouter } from 'react-router'
 import styles from './Order.css'
 import {OrdersQuery} from '../queries'
+import Loading from '../Loading/Loading';
 
 const OrderSummary = ({order}) =>{
   return <div> {order.id} </div>
@@ -10,7 +11,7 @@ const OrderSummary = ({order}) =>{
 
 const OrderList = ({ data: {loading, error, orders }, history }) => {
   if (loading) {
-    return <p>Loading ...</p>;
+    return <Loading />;
   }
   if (error) {
     return <p>{error.message}</p>;
