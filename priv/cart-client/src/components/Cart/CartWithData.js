@@ -64,7 +64,7 @@ class CartWithData extends Component {
 
   render(){
     if(this.state.items.length <= 0)
-      return <div> 购物车还没有东西哦 </div>
+      return <EmptyCart />
     
     return <div className={styles.cart}>
       <div className={styles.main}>

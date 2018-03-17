@@ -144,3 +144,17 @@
 .itemName{
   font-size: small;
 }
+
+.emptyCart{
+  height: 100%;
+  text-align: center;
+  margin-top: 40%;
+}
+
+.emptyCart img{
+  width: 4rem;
+}
+
+.emptyCart p{
+  color: #ff4136;
+}
