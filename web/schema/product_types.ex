@@ -35,6 +35,7 @@ defmodule Nectar.Schema.ProductTypes do
   end
 
   object :product_image do
+    field :id, :id
     field :product_id, :id
     field :mobile, :string do
       resolve fn image, _, _ ->

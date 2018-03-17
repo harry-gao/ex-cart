@@ -45,6 +45,12 @@ defmodule Nectar.Schema do
       resolve &Resolvers.Product.list_products/3
     end
 
+    @desc "Get a product"
+    field :product, :product do
+      arg :id, non_null(:integer)
+      resolve &Resolvers.Product.find_product/3
+    end
+
     field :cart, :cart do
       resolve fn _,_,_ -> {:ok, %{}} end
     end

@@ -64,7 +64,8 @@ defmodule Nectar.Resolvers.Cart do
 
   def get_image(product_id) do
     query = from pi in Nectar.ProductImage,
-            where: pi.product_id == ^product_id
+            where: pi.product_id == ^product_id,
+            limit: 1
     image = Nectar.Repo.one!(query)
     Nectar.Uploader.ProductImage.url({image.image, image}, :thumb)
   end
