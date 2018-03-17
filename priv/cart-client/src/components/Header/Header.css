@@ -1,6 +1,25 @@
 .header {
-  background-color: #222;
-  height: 70px;
+  background-color: #2a1c0d;
+  height: 4rem;
   color: white;
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.logo{
+  border-radius: 999rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-left: 1rem;
+}
+
+.title{
+  color: #8eb645;
+  font-size: 1.2rem;
+  margin-left: 1.2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }

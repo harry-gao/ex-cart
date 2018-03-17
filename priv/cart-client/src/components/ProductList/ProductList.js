@@ -34,10 +34,9 @@ class ProductList extends Component{
       <Loadable
         active={this.state.loading}
         spinner={true}
-        animate={true}
-        background={'#96ccff'}
+        background={'#19572e'}
         className={styles.loadingOverlay}
-        text='加载中...'
+        text='购物车加载中...'
         >
         <div className={styles.list}>
           { products.map( p => <ProductBriefContainer 

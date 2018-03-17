@@ -96,7 +96,7 @@ class CartWithData extends Component {
     if(newQuantity == 0){
       return this.handleOpenModal(itemId);
     }
-    let newItems = _.map(this.state.items, item =>
+    let newItems = this.state.items.map(item =>
       item.id == itemId ? Object.assign({}, item, {quantity: newQuantity}) : item
     );
     this.setState({items: newItems, dirty: true});
