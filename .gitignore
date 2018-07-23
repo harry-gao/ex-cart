@@ -7,3 +7,4 @@ erl_crash.dump
 /uploads
 .env
 /.elixir_ls
+/node_modules
